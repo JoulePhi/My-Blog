@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class PostCategory extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes, HasUlids;
+
+    protected $fillable = [
+        'post_id',
+        'category_id',
+    ];
 }

@@ -7,5 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class PostMeta extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes, HasUlids;
+
+    protected $fillable = [
+        'post_id',
+        'key',
+        'content',
+    ];
 }
