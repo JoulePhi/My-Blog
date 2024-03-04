@@ -1,11 +1,9 @@
-import { Head } from '@inertiajs/react'
 import Sidebar from '@/Components/Dashboard/Sidebar'
 import Navbar from "@/Components/Dashboard/Navbar";
 
 export default function AdminLayout({ children }) {
     return (
         <>
-            <Head title="Admin" />
             <div className="flex h-screen bg-bg">
                 <Sidebar />
                 <main className="flex-1 ">

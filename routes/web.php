@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -29,7 +32,7 @@ Route::get('/dashboard', function () {
 
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -38,15 +41,34 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard', function () {
             return Inertia::render('Admin/Dashboard');
         })->name('admin.dashboard');
-        Route::get('/blogs', function () {
-            return Inertia::render('Admin/Blogs');
-        })->name('admin.blogs');
-        Route::get('/tags', function () {
-            return Inertia::render('Admin/Tags');
-        })->name('admin.tags');
-        Route::get('/categories', function () {
-            return Inertia::render('Admin/Categories');
-        })->name('admin.categories');
+
+        Route::resource('blogs', PostController::class)->names([
+            'index' => 'admin.blogs.index',
+            'create' => 'admin.blogs.create',
+            'store' => 'admin.blogs.store',
+            'show' => 'admin.blogs.show',
+            'edit' => 'admin.blogs.edit',
+            'update' => 'admin.blogs.update',
+            'destroy' => 'admin.blogs.destroy',
+        ]);
+        Route::resource('tags', TagController::class)->names([
+            'index' => 'admin.tags.index',
+            'create' => 'admin.tags.create',
+            'store' => 'admin.tags.store',
+            'show' => 'admin.tags.show',
+            'edit' => 'admin.tags.edit',
+            'update' => 'admin.tags.update',
+            'destroy' => 'admin.tags.destroy',
+        ]);
+        Route::resource('categories', CategoryController::class)->names([
+            'index' => 'admin.categories.index',
+            'create' => 'admin.categories.create',
+            'store' => 'admin.categories.store',
+            'show' => 'admin.categories.show',
+            'edit' => 'admin.categories.edit',
+            'update' => 'admin.categories.update',
+            'destroy' => 'admin.categories.destroy',
+        ]);
     });
 });
 

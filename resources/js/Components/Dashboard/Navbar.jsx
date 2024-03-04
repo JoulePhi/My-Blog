@@ -4,7 +4,7 @@ import Search from "@/Assets/Icons/Search";
 export default function Navbar() {
     return (
         <>
-            <nav className='bg-white w-full h-24 shadow-md px-20 py-8 flex items-center justify-between'>
+            <nav className='bg-white w-full h-24 shadow-md px-12 py-8 flex items-center justify-between'>
                 <h1 className='text-3xl font-bold text-black'>Hello, Admin 🖐</h1>
                 <div className='flex items-center'>
                     <div className="relative w-full ">

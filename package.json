@@ -20,6 +20,12 @@
         "vite": "^5.0.0"
     },
     "dependencies": {
+        "quill": "^2.0.0-rc.2",
+        "react-confirm-alert": "^3.0.6",
+        "react-hot-toast": "^2.4.1",
+        "react-quill": "^2.0.0",
+        "react-select": "^5.8.0",
+        "react-toastify": "^10.0.4",
         "zustand": "^4.5.2"
     }
 }
