@@ -2,9 +2,38 @@ import AdminLayout from "@/Layouts/AdminLayout.jsx";
 import {Head} from "@inertiajs/react";
 import Edit from "@/Assets/Icons/Edit.jsx";
 import Trash from "@/Assets/Icons/Trash.jsx";
-
+import toast from "react-hot-toast";
+import {confirmAlert} from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 const Categories = ({ categories }) => {
+
+    const deleteCategory = async (category) => {
+        const modalOptions = {
+            title: "Confirm to Delete",
+            message: "Are you sure want to delete this item?",
+            buttons: [
+                {
+                    label: "Yes",
+                    onClick: async () =>{
+                        try {
+                            const response = await axios.delete(route('admin.categories.destroy', category));
+                            toast.success(response.data.message);
+                        } catch (error) {
+                            toast.error('Something went wrong!');
+                        }
+                        window.location.reload();
+                    }
+                },
+                {
+                    label: "No"
+                }
+            ]
+        };
+        confirmAlert(modalOptions);
+
+    }
+
     return(
         <>
             <Head title="Categories"/>
@@ -30,6 +59,9 @@ const Categories = ({ categories }) => {
                             <thead>
                             <tr>
                                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                    No
+                                </th>
+                                <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                                     Title
                                 </th>
                                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
@@ -37,9 +69,6 @@ const Categories = ({ categories }) => {
                                 </th>
                                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                                     Slug
-                                </th>
-                                <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                    Content
                                 </th>
                                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                                     Total Blogs
@@ -51,33 +80,35 @@ const Categories = ({ categories }) => {
                             </thead>
 
                             <tbody>
-                            <tr>
-                                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
-                                    Blogging
-                                </th>
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
-                                    Blogging Tips
-                                </td>
-                                <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                    blogging
-                                </td>
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                    Blogging Content
-                                </td>
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                    1
-                                </td>
-                                <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4 flex  ">
-                                    <button
-                                        className="p-1 text-white bg-blue-600 rounded-lg hover:bg-blue-500  flex justify-center items-center mr-2 ">
-                                        <Edit/>
-                                    </button>
-                                    <button
-                                        className="p-1 text-white bg-red-500 hover:bg-red-400 rounded-lg   flex justify-center items-center">
-                                        <Trash/>
-                                    </button>
-                                </td>
-                            </tr>
+                            {categories.map((category, index) => (
+                                <tr key={index}>
+                                    <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
+                                        {index + 1}
+                                    </th>
+                                    <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
+                                        {category.title}
+                                    </th>
+                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
+                                        {category.meta_title}
+                                    </td>
+                                    <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                        {category.slug}
+                                    </td>
+                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs   whitespace-nowrap p-4">
+                                        {category.posts_count}
+                                    </td>
+                                    <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4 flex  ">
+                                        <a href={route('admin.categories.edit', category.id)}
+                                           className="p-1 text-white bg-blue-600 rounded-lg hover:bg-blue-500  flex justify-center items-center mr-2 ">
+                                            <Edit/>
+                                        </a>
+                                        <button onClick={() => deleteCategory(category)}
+                                                className="p-1 text-white bg-red-500 hover:bg-red-400 rounded-lg   flex justify-center items-center">
+                                            <Trash/>
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
 
                             </tbody>
 
@@ -89,6 +120,6 @@ const Categories = ({ categories }) => {
     )
 }
 
-Categories.layout = page => <AdminLayout children={page} />
+Categories.layout = page => <AdminLayout children={page}/>
 
 export default Categories;

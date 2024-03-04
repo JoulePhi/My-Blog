@@ -3,12 +3,13 @@
 namespace App\Services\CRUD;
 
 use App\Models\Tag;
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 class TagService
 {
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function create ($data)
     {
@@ -17,13 +18,16 @@ class TagService
             $comment = Tag::create($data);
             DB::commit();
             return $comment;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             throw $e;
         }
 
     }
 
+    /**
+     * @throws Exception
+     */
     public function update ($id, $data)
     {
         DB::beginTransaction();
@@ -31,11 +35,15 @@ class TagService
             $comment =  Tag::where('id', $id)->update($data);
             DB::commit();
             return  $comment;
-        } catch (\Exception $e) {
-            return $e->getMessage();
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
         }
     }
 
+    /**
+     * @throws Exception
+     */
     public function delete ($id)
     {
         DB::beginTransaction();
@@ -43,8 +51,9 @@ class TagService
             $comment =  Tag::where('id', $id)->delete();
             DB::commit();
             return  $comment;
-        } catch (\Exception $e) {
-            return $e->getMessage();
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
         }
     }
 

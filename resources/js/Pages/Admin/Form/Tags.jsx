@@ -3,7 +3,7 @@ import {Head} from "@inertiajs/react";
 import {useEffect, useState} from "react";
 import toast, { Toaster } from 'react-hot-toast';
 import Spinner from "@/Components/Spinner";
-const Tags = (tag) => {
+const Tags = ({tag}) => {
     const [title, setTitle] = useState('');
     const [slug, setSlug] = useState('');
     const [metaTitle, setMetaTitle] = useState('');
@@ -13,11 +13,10 @@ const Tags = (tag) => {
 
 
     useEffect(() => {
-        console.log(tag);
-        if(tag.title != null){
-            setTitle(tag.tag.title);
-            setMetaTitle(tag.tag.meta_title);
-            setContent(tag.tag.content);
+        if(tag != null){
+            setTitle(tag.title);
+            setMetaTitle(tag.meta_title);
+            setContent(tag.content);
             setUpdate(true);
         }
     }, []);
@@ -97,7 +96,7 @@ const Tags = (tag) => {
                         <div className='col-span-2 flex justify-end items-center'>
                             <button
                                 className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 hover:bg-indigo-400"
-                                onClick={() => update ? updateTag(tag.tag.id) : submitTag()}
+                                onClick={() => update ? updateTag(tag.id) : submitTag()}
                                 type="button">{loading ?
                                 <Spinner/>
                                 : update ? 'Update' : 'Add'}

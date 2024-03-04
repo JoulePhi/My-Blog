@@ -3,10 +3,14 @@
 namespace App\Services\CRUD;
 
 use App\Models\Category;
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 class CategoryService
 {
+    /**
+     * @throws Exception
+     */
     public function create ($data)
     {
         DB::beginTransaction();
@@ -14,13 +18,16 @@ class CategoryService
             $comment = Category::create($data);
             DB::commit();
             return $comment;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
-            return $e->getMessage();
+            throw $e;
         }
 
     }
 
+    /**
+     * @throws Exception
+     */
     public function update ($id, $data)
     {
         DB::beginTransaction();
@@ -28,11 +35,15 @@ class CategoryService
             $comment =  Category::where('id', $id)->update($data);
             DB::commit();
             return  $comment;
-        } catch (\Exception $e) {
-            return $e->getMessage();
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
         }
     }
 
+    /**
+     * @throws Exception
+     */
     public function delete ($id)
     {
         DB::beginTransaction();
@@ -40,8 +51,9 @@ class CategoryService
             $comment =  Category::where('id', $id)->delete();
             DB::commit();
             return  $comment;
-        } catch (\Exception $e) {
-            return $e->getMessage();
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
         }
     }
 

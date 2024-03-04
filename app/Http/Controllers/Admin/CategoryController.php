@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreCategoryRequest;
 use App\Http\Requests\Admin\UpdateCategoryRequest;
 use App\Models\Category;
+use App\Models\Tag;
 use App\Services\CRUD\CategoryService;
-use Illuminate\Http\Request;
+use Exception;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class CategoryController extends Controller
@@ -25,7 +27,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Admin/Categories');
+        $categories = Category::withCount('posts')->get();
+        return Inertia::render('Admin/Categories',['categories' => $categories]);
     }
 
     /**
@@ -41,7 +44,13 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+        try {
+            $this->categoryService->create($request->validated());
+            return response()->json(['message' => 'Category created successfully']);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
     }
 
     /**
@@ -57,7 +66,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return Inertia::render('Admin/Form/Categories',['category' => $category]);
     }
 
     /**
@@ -65,7 +74,13 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        try {
+            $this->categoryService->update( $category->id, $request->validated());
+            return response()->json(['message' => 'Category updated successfully']);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
     }
 
     /**
@@ -73,6 +88,12 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        try {
+            $this->categoryService->delete($category->id);
+            return response()->json(['message' => 'Category deleted successfully']);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
     }
 }
