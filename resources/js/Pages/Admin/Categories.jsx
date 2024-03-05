@@ -5,6 +5,8 @@ import Trash from "@/Assets/Icons/Trash.jsx";
 import toast from "react-hot-toast";
 import {confirmAlert} from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import { useState} from "react";
+import ReactPaginate from "react-paginate";
 
 const Categories = ({ categories }) => {
 
@@ -34,7 +36,54 @@ const Categories = ({ categories }) => {
 
     }
 
-    return(
+    const [currentPage, setCurrentPage] = useState(0);
+
+    const perPage = 5; // Number of items per page
+    const offset = currentPage * perPage;
+
+    // Current page data
+    const currentPageData = categories
+        .slice(offset, offset + perPage)
+        .map( (category,index) => {
+            return (
+                <tr key={index}>
+                    <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
+                        {currentPage * perPage + index + 1}
+                    </th>
+                    <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
+                        {category.title}
+                    </th>
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
+                        {category.meta_title}
+                    </td>
+                    <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        {category.slug}
+                    </td>
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs text-center  whitespace-nowrap p-4">
+                        {category.posts_count}
+                    </td>
+                    <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4 flex  ">
+                        <a href={route('admin.categories.edit', category.id)}
+                           className="p-1 text-white bg-blue-600 rounded-lg hover:bg-blue-500  flex justify-center items-center mr-2 ">
+                            <Edit/>
+                        </a>
+                        <button onClick={() => deleteCategory(category)}
+                                className="p-1 text-white bg-red-500 hover:bg-red-400 rounded-lg   flex justify-center items-center">
+                            <Trash/>
+                        </button>
+                    </td>
+                </tr>
+            )
+        });
+
+    // Page count
+    const pageCount = Math.ceil(categories.length / perPage);
+
+    function handlePageClick({selected: selectedPage}) {
+        setCurrentPage(selectedPage);
+    }
+
+    return (
         <>
             <Head title="Categories"/>
             <h1 className='font-bold text-4xl'>My Blogs 🌟</h1>
@@ -47,8 +96,8 @@ const Categories = ({ categories }) => {
                             </div>
                             <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
                                 <a href={route('admin.categories.create')}
-                                    className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 hover:bg-indigo-400"
-                                    type="button">Add
+                                   className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 hover:bg-indigo-400"
+                                   type="button">Add
                                 </a>
                             </div>
                         </div>
@@ -80,39 +129,35 @@ const Categories = ({ categories }) => {
                             </thead>
 
                             <tbody>
-                            {categories.map((category, index) => (
-                                <tr key={index}>
-                                    <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
-                                        {index + 1}
-                                    </th>
-                                    <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
-                                        {category.title}
-                                    </th>
-                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
-                                        {category.meta_title}
-                                    </td>
-                                    <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                        {category.slug}
-                                    </td>
-                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs   whitespace-nowrap p-4">
-                                        {category.posts_count}
-                                    </td>
-                                    <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4 flex  ">
-                                        <a href={route('admin.categories.edit', category.id)}
-                                           className="p-1 text-white bg-blue-600 rounded-lg hover:bg-blue-500  flex justify-center items-center mr-2 ">
-                                            <Edit/>
-                                        </a>
-                                        <button onClick={() => deleteCategory(category)}
-                                                className="p-1 text-white bg-red-500 hover:bg-red-400 rounded-lg   flex justify-center items-center">
-                                            <Trash/>
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
+                            {currentPageData}
 
                             </tbody>
 
                         </table>
+                        <div className='flex justify-end m-2 '>
+                            <ReactPaginate
+                                nextLabel=">"
+                                onPageChange={handlePageClick}
+                                pageRangeDisplayed={3}
+                                marginPagesDisplayed={2}
+                                pageCount={pageCount}
+
+                                previousLabel="<"
+                                pageClassName="hover:bg-red-200 page-item"
+                                pageLinkClassName="relative block py-2 px-3 -ml-px leading-normal text-blue bg-white border border-gray-200 no-underline hover:text-blue-800 hover:bg-gray-200"
+                                previousClassName="page-item"
+                                previousLinkClassName="relative block py-2 px-3 -ml-px leading-normal text-blue bg-blue-500 text-white border border-gray-200 no-underline  hover:bg-blue-400 rounded-md mr-4 "
+                                nextClassName="page-item"
+                                nextLinkClassName="relative block py-2 px-3 -ml-px leading-normal text-blue bg-blue-500 text-white border border-gray-200 no-underline  hover:bg-blue-400 rounded-md ml-4"
+                                breakLabel="..."
+                                breakClassName="page-item"
+                                breakLinkClassName="relative block py-2 px-3 -ml-px leading-normal text-blue bg-white border border-gray-200 no-underline hover:text-blue-800 hover:bg-gray-200"
+                                containerClassName="flex list-reset pl-0 rounded "
+                                activeClassName="underline font-bold "
+                                renderOnZeroPageCount={null}
+                            />
+                        </div>
+
                     </div>
                 </div>
             </div>

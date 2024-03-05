@@ -66,6 +66,7 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
+        Log::debug($tag);
         return Inertia::render('Admin/Form/Tags',['tag' => $tag]);
     }
 

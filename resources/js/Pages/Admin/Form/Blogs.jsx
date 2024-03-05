@@ -1,30 +1,100 @@
 import AdminLayout from "@/Layouts/AdminLayout.jsx";
 import {Head} from "@inertiajs/react";
-import Upload from "@/Assets/Icons/Upload";
 import MultiSelect from "@/Components/Dashboard/MultiSelect";
 import RichEditor from "@/Components/Dashboard/RichEditor.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import Dropzone from "@/Components/Dashboard/Dropzone";
+import toast, { Toaster } from 'react-hot-toast';
+import Spinner from "@/Components/Spinner";
+import { usePage } from '@inertiajs/react'
 
-const Blogs = () => {
+const Blogs = ({blog,tags, categories,postTagIndexes, postCategoryIndexes}) => {
     const [isWriting, setIsWriting] = useState(false);
-    const tagOptions = [
-        {value: '1', label: 'Laravel'},
-        {value: '2', label: 'React'},
-        {value: '3', label: 'Vue'},
-        {value: '4', label: 'Tailwind'},
-    ];
+    const [files, setFiles] = useState([]);
+    const [selectedTags, setSelectedTags] = useState([]);
+    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [title, setTitle] = useState('');
+    const [metaTitle, setMeta] = useState('');
+    const [value, setValue] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [update, setUpdate] = useState(false);
+    const { auth } = usePage().props
+    const [image, setImage] = useState('');
 
-    const categoriesOptions = [
-        {value: '1', label: 'Laravel'},
-        {value: '2', label: 'React'},
-        {value: '3', label: 'Vue'},
-        {value: '4', label: 'Tailwind'},
-    ];
 
+    useEffect(() => {
+        console.log(blog)
+        if (blog != null) {
+            setTitle(blog.title);
+            setMeta(blog.meta_title);
+            setValue(blog.content);
+            setUpdate(true);
+            setFiles([blog.thumbnail]);
+            setImage(blog.thumbnail);
+        }
+    }, []);
+
+
+
+
+    const submitBlog = async () => {
+        setLoading(true);
+        try {
+            const response = await axios.post(route('admin.posts.store'), {
+                title: title,
+                meta_title: metaTitle,
+                content: value,
+                tags: selectedTags,
+                categories: selectedCategories,
+                thumbnail: files[0],
+                user_id: auth.user.id,
+            }, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            toast.success(response.data.message);
+            setTitle('');
+            setMeta('');
+            setValue('');
+            setSelectedTags([]);
+            setSelectedCategories([]);
+            setFiles([]);
+            console.log(files[0])
+        }catch (error) {
+            console.error(error.request.response);
+            toast.error('Something went wrong!');
+        }
+        setLoading(false);
+    }
+
+    const updateBlog = async (post) => {
+        setLoading(true);
+        try {
+            const response = await axios.put(route('admin.posts.update', post), {
+                title: title,
+                meta_title: metaTitle,
+                content: value,
+                tags: selectedTags,
+                categories: selectedCategories,
+                thumbnail: files[0],
+            }, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            toast.success(response.data.message);
+        }catch (error) {
+            console.error(error.request.response);
+            toast.error('Something went wrong!');
+        }
+        setLoading(false);
+    }
     return (
         <>
             <Head title="Add Blogs"/>
-            <a href={route('admin.blogs.index')} className="text-2xl font-bold font-opensans text-slate-800 hover:underline"> {"<< Back"} </a>
+            <Toaster position="bottom-right" />
+            <a href={route('admin.posts.index')} className="text-2xl font-bold font-opensans text-slate-800 hover:underline"> {"<< Back"} </a>
 
 
             <div className='flex justify-center'>
@@ -34,7 +104,7 @@ const Blogs = () => {
                         { isWriting ? (
                             <>
                                 <div className='col-span-2  row-span-3 mb-5' >
-                                    <RichEditor/>
+                                    <RichEditor value={value} setValue={setValue} />
                                 </div>
                                 <div className='col-span-2 flex justify-end items-center'>
                                     <button
@@ -44,8 +114,10 @@ const Blogs = () => {
                                     </button>
                                     <button
                                         className="bg-green-500 text-white active:bg-green-600 text-xs font-bold uppercase px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 hover:bg-green-400"
-                                        onClick={() => setIsWriting(false)}
-                                        type="button">Submit
+                                        onClick={update ?  ()=> updateBlog(blog.id) : submitBlog()}
+                                        type="button">{loading ?
+                                        <Spinner/>
+                                        : update ? 'Update' : 'Add'}
                                     </button>
                                 </div>
                             </>
@@ -53,33 +125,17 @@ const Blogs = () => {
                             <>
                                 <input
                                     className="w-full bg-bg text-gray-900 mt-2 p-3 rounded-lg border-none focus:outline-none focus:shadow-outline"
-                                    type="text" placeholder="Title"/>
+                                    type="text" placeholder="Title" onChange={(e) => setTitle(e.target.value)} value={title}/>
                                 <input
                                     className="w-full bg-bg text-gray-900 mt-2 p-3 rounded-lg border-none focus:outline-none focus:shadow-outline"
-                                    type="text" placeholder="Slug"/>
+                                    type="text" placeholder="Meta Title"  value={metaTitle} onChange={(e) => setMeta(e.target.value)}/>
                                 <div className="col-span-2">
 
-                                    <div className="flex items-center justify-center w-full">
-                                        <label htmlFor="dropzone-file"
-                                               className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-bg hover:bg-gray-100 ">
-                                            <div
-                                                className="flex flex-col items-center justify-center pt-5 pb-6 text-textGray">
-                                                <Upload/>
-                                                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
-                                                    className="font-semibold">Click to upload</span> or drag and drop
-                                                </p>
-                                                <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or
-                                                    GIF
-                                                    (MAX.
-                                                    800x400px)</p>
-                                            </div>
-                                            <input id="dropzone-file" type="file" className="hidden"/>
-                                        </label>
-                                    </div>
+                                    <Dropzone files={files} setFiles={setFiles} image={update ?  image : ''} setImage={setImage}/>
 
                                 </div>
-                                <MultiSelect options={tagOptions} title='Select tags:'/>
-                                <MultiSelect options={categoriesOptions} title='Select categories:'/>
+                                <MultiSelect options={tags} title='Select tags:' selectedOption={selectedTags} setSelectedOption={setSelectedTags} indexes={postTagIndexes} />
+                                <MultiSelect options={categories} title='Select categories:' selectedOption={selectedCategories} setSelectedOption={setSelectedCategories}  indexes={postCategoryIndexes} />
                                 <div className='col-span-2 flex justify-end items-center'>
                                     <button
                                         className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 hover:bg-indigo-400"
@@ -87,6 +143,8 @@ const Blogs = () => {
                                         type="button">Start Writing ✨
                                     </button>
                                 </div>
+
+
                             </>
                         )}
                     </div>

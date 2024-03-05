@@ -5,8 +5,8 @@ import Quill from "quill"; // import styles
 const Font = Quill.import('attributors/style/font');
 Font.whitelist = ['poppins', 'open-sans', 'sans-serif'];
 Quill.register(Font, true);
-function RichTextEditor() {
-    const [value, setValue] = useState('');
+function RichTextEditor({value, setValue}) {
+
 
     const modules = {
         toolbar: [

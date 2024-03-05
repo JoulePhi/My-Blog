@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Select from 'react-select';
 
 
 
-const MultiSelectDropdown = ({options, title}) => {
-    const [selectedOption, setSelectedOption] = useState(null);
+const MultiSelectDropdown = ({options, title, setSelectedOption, indexes }) => {
 
     const handleChange = (selectedOption) => {
-        setSelectedOption(selectedOption);
+        setSelectedOption(selectedOption.map(option => option.value));
     };
+
 
 
 
@@ -19,9 +19,9 @@ const MultiSelectDropdown = ({options, title}) => {
                 <Select
                     id='flavor-select'
                     isMulti
-                    value={selectedOption}
                     onChange={handleChange}
                     options={options}
+                    defaultValue={indexes}
                 />
             </div>
         </>

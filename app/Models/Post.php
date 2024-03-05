@@ -24,6 +24,8 @@ class Post extends Model
         'published_at',
     ];
 
+
+
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class, 'post_id', 'id');
@@ -31,11 +33,11 @@ class Post extends Model
 
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class,'post_tags');
     }
 
     public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class,'post_categories');
     }
 }

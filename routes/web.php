@@ -42,14 +42,14 @@ Route::middleware(['auth'])->group(function () {
             return Inertia::render('Admin/Dashboard');
         })->name('admin.dashboard');
 
-        Route::resource('blogs', PostController::class)->names([
-            'index' => 'admin.blogs.index',
-            'create' => 'admin.blogs.create',
-            'store' => 'admin.blogs.store',
-            'show' => 'admin.blogs.show',
-            'edit' => 'admin.blogs.edit',
-            'update' => 'admin.blogs.update',
-            'destroy' => 'admin.blogs.destroy',
+        Route::resource('posts', PostController::class)->names([
+            'index' => 'admin.posts.index',
+            'create' => 'admin.posts.create',
+            'store' => 'admin.posts.store',
+            'show' => 'admin.posts.show',
+            'edit' => 'admin.posts.edit',
+            'update' => 'admin.posts.update',
+            'destroy' => 'admin.posts.destroy',
         ]);
         Route::resource('tags', TagController::class)->names([
             'index' => 'admin.tags.index',
