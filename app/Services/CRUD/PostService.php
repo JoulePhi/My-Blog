@@ -37,8 +37,12 @@ class PostService
     {
         DB::beginTransaction();
         try {
+            $data['slug'] = Str::slug($data['title']);
             $data['thumbnail'] = $image;
-            $post =  Post::where('id', $id)->update($data);
+            $post =  Post::find($id);
+            $post->update($data);
+            $post->tags()->sync($data['tags']);
+            $post->categories()->sync($data['categories']);
             DB::commit();
             return  $post;
         } catch (Exception $e) {

@@ -1,9 +1,12 @@
 import Upload from "@/Assets/Icons/Upload.jsx";
 
 import {useDropzone} from 'react-dropzone'
+import {useState} from "react";
+import {getImage} from "@/Helpers/Helpers";
+
 export default function Dropzone({setFiles, files, image, setImage}){
 
-
+    const [preview, setPreview] = useState('');
     const {
         getRootProps,
         getInputProps
@@ -15,25 +18,24 @@ export default function Dropzone({setFiles, files, image, setImage}){
         },
         maxFiles: 1,
         onDrop: (acceptedFiles) => {
-            setFiles(acceptedFiles.map(file => Object.assign(file, {
-                preview: URL.createObjectURL(file)
-            })));
+            setFiles(acceptedFiles);
+            setPreview(URL.createObjectURL(acceptedFiles[0]));
         }
     });
 
 
 
-    if(files.length > 0 || image.length > 0){
+    if(files.length > 0 || image !== ''){
         console.log(image)
         return (
             <div className="flex items-center justify-center relative">
                 <div className="w-full h-64 relative bg-gray-100 rounded-lg">
-                    <img src={ image.length > 0 ? window.location.origin + `/storage/` + image.slice(6)   : files[0].preview} alt="preview" className="w-full h-full rounded-lg object-cover"/>
+                    <img src={ image !== '' ?  getImage(image) : preview } alt="preview" className="w-full h-full rounded-lg object-cover"/>
                 </div>
 
                 <div className='absolute w-8 h-8 bg-red-500 rounded-full flex items-center justify-center -top-2 -right-2 text-white font-bold hover:cursor-pointer' onClick={() => {
                     setFiles([]);
-                   setImage('')
+                   setImage('');
                 }}>
                     X
                 </div>

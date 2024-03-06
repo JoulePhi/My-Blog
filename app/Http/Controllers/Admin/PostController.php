@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\ImageHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StorePostRequest;
 use App\Http\Requests\Admin\UpdatePostRequest;
@@ -10,7 +11,7 @@ use App\Models\Post;
 use App\Models\Tag;
 use App\Services\CRUD\PostService;
 use Exception;
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
@@ -31,7 +32,7 @@ class PostController extends Controller
     {
         $blogs = Post::with(['tags','categories'])->get();
 
-        return Inertia::render('Admin/Blogs',['blogs' => $blogs,'link' => asset('storage')]);
+        return Inertia::render('Admin/Blogs',['blogs' => $blogs]);
     }
 
     /**
@@ -54,9 +55,7 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         try {
-            $imageName = time().'.'.$request->thumbnail->extension();
-            $image = $request->thumbnail->storeAs('public/images', $imageName);
-            $request->user_id = auth()->user()->id;
+            $image = ImageHelper::uploadImage($request);
             $this->postService->create($request->validated(), $image);
             return response()->json(['message' => 'Blog created successfully']);
         } catch (Exception $e) {
@@ -95,9 +94,9 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
+
         try {
-            $imageName = time().'.'.$request->thumbnail->extension();
-            $image = $request->thumbnail->storeAs('public/images', $imageName);
+            $image = ImageHelper::uploadImage($request);
             $this->postService->update($post->id, $request->validated(), $image);
             return response()->json(['message' => 'Blog updated successfully']);
         } catch (Exception $e) {

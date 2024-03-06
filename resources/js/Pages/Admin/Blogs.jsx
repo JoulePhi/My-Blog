@@ -3,11 +3,14 @@ import {Head} from "@inertiajs/react";
 import Edit from "@/Assets/Icons/Edit";
 import Trash from "@/Assets/Icons/Trash";
 import Switch from '@/Components/Dashboard/Switch';
-import {useEffect, useState} from "react";
+import { useState} from "react";
 import toast, {Toaster} from "react-hot-toast";
 import {confirmAlert} from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-const Blogs = ({blogs, link}) => {
+import {getImage} from "@/Helpers/Helpers";
+import ReactPaginate from "react-paginate";
+
+const Blogs = ({blogs}) => {
 
 
     const [currentPage, setCurrentPage] = useState(0);
@@ -41,9 +44,6 @@ const Blogs = ({blogs, link}) => {
 
     }
 
-    useEffect(() => {
-        console.log(link)
-    },[]);
 
     const currentPageData = blogs
         .slice(offset, offset + perPage)
@@ -54,7 +54,7 @@ const Blogs = ({blogs, link}) => {
                     {currentPage * perPage + index + 1}
                 </th>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
-                    <img src={window.location.origin + `/storage/` + blog.thumbnail.slice(6)} alt={blog.thumbnail.slice(6)} className="h-20 object-cover"/>
+                    <img src={getImage(blog.thumbnail)} alt={blog.thumbnail} className="h-20 object-cover"/>
                 </td>
                 <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     {blog.title}
@@ -62,14 +62,16 @@ const Blogs = ({blogs, link}) => {
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     {blog.slug}
                 </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700  ">
-                    <div className="flex flex-wrap w-20 gap-2 ">
-                        {blog.categories.map((e, i) => <span key={i} className="bg-gray-100 text-pretty p-2">{e.title}</span>)}
-                    </div>
-                </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
                     <div className="flex flex-wrap w-20 gap-2">
-                        {blog.tags.map((e, i) => <span key={i} className="bg-gray-100 text-pretty p-2">{e.title}</span>)}
+                        {blog.tags.map((e, i) => <span key={i}
+                                                       className="bg-gray-100 text-pretty p-2">{e.title}</span>)}
+                    </div>
+                </td>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700  ">
+                    <div className="flex flex-wrap w-20 gap-2 ">
+                        {blog.categories.map((e, i) => <span key={i}
+                                                             className="bg-gray-100 text-pretty p-2">{e.title}</span>)}
                     </div>
                 </td>
                 <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -80,17 +82,23 @@ const Blogs = ({blogs, link}) => {
                 </td>
                 <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4 flex  ">
                     <a href={route('admin.posts.edit', blog.id)}
-                        className="p-1 text-white bg-blue-600 rounded-lg hover:bg-blue-500  flex justify-center items-center mr-2 ">
+                       className="p-1 text-white bg-blue-600 rounded-lg hover:bg-blue-500  flex justify-center items-center mr-2 ">
                         <Edit/>
                     </a>
                     <button onClick={() => deleteTag(blog)}
-                        className="p-1 text-white bg-red-500 hover:bg-red-400 rounded-lg   flex justify-center items-center">
+                            className="p-1 text-white bg-red-500 hover:bg-red-400 rounded-lg   flex justify-center items-center">
                         <Trash/>
                     </button>
                 </td>
             </tr>
         )
         });
+
+    const pageCount = Math.ceil(blogs.length / perPage);
+
+    function handlePageClick({selected: selectedPage}) {
+        setCurrentPage(selectedPage);
+    }
     return (
         <>
             <Head title="Blogs"/>
@@ -98,7 +106,7 @@ const Blogs = ({blogs, link}) => {
             <h1 className='font-bold text-4xl'>My Blogs 🌟</h1>
             <div className="w-full  mt-24">
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-xl ">
-                    <div className="rounded-t mb-0 p-6 border-0">
+                <div className="rounded-t mb-0 p-6 border-0">
                         <div className="flex flex-wrap items-center">
                             <div className="relative w-full px-4 max-w-full flex-grow flex-1">
                                 <h3 className="font-semibold text-base text-blueGray-700">Blogs</h3>
@@ -129,10 +137,10 @@ const Blogs = ({blogs, link}) => {
                                     Slug
                                 </th>
                                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                    Category
+                                    Tags
                                 </th>
                                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                    Tags
+                                    Category
                                 </th>
                                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                                     Published at
@@ -152,6 +160,29 @@ const Blogs = ({blogs, link}) => {
                             </tbody>
 
                         </table>
+                        <div className='flex justify-end m-2 '>
+                            <ReactPaginate
+                                nextLabel=">"
+                                onPageChange={handlePageClick}
+                                pageRangeDisplayed={3}
+                                marginPagesDisplayed={2}
+                                pageCount={pageCount}
+
+                                previousLabel="<"
+                                pageClassName="hover:bg-red-200 page-item"
+                                pageLinkClassName="relative block py-2 px-3 -ml-px leading-normal text-blue bg-white border border-gray-200 no-underline hover:text-blue-800 hover:bg-gray-200"
+                                previousClassName="page-item"
+                                previousLinkClassName="relative block py-2 px-3 -ml-px leading-normal text-blue bg-blue-500 text-white border border-gray-200 no-underline  hover:bg-blue-400 rounded-md mr-4 "
+                                nextClassName="page-item"
+                                nextLinkClassName="relative block py-2 px-3 -ml-px leading-normal text-blue bg-blue-500 text-white border border-gray-200 no-underline  hover:bg-blue-400 rounded-md ml-4"
+                                breakLabel="..."
+                                breakClassName="page-item"
+                                breakLinkClassName="relative block py-2 px-3 -ml-px leading-normal text-blue bg-white border border-gray-200 no-underline hover:text-blue-800 hover:bg-gray-200"
+                                containerClassName="flex list-reset pl-0 rounded "
+                                activeClassName="underline font-bold "
+                                renderOnZeroPageCount={null}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

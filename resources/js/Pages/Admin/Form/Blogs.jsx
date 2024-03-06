@@ -20,6 +20,7 @@ const Blogs = ({blog,tags, categories,postTagIndexes, postCategoryIndexes}) => {
     const [update, setUpdate] = useState(false);
     const { auth } = usePage().props
     const [image, setImage] = useState('');
+    const [imageChanged, setImageChanged] = useState(false);
 
 
     useEffect(() => {
@@ -29,8 +30,9 @@ const Blogs = ({blog,tags, categories,postTagIndexes, postCategoryIndexes}) => {
             setMeta(blog.meta_title);
             setValue(blog.content);
             setUpdate(true);
-            setFiles([blog.thumbnail]);
             setImage(blog.thumbnail);
+            setSelectedTags(postTagIndexes.map(tag => tag.value));
+            setSelectedCategories(postCategoryIndexes.map(category => category.value));
         }
     }, []);
 
@@ -39,20 +41,16 @@ const Blogs = ({blog,tags, categories,postTagIndexes, postCategoryIndexes}) => {
 
     const submitBlog = async () => {
         setLoading(true);
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('meta_title', metaTitle);
+        formData.append('content', value);
+        selectedTags.forEach(tag => formData.append('tags[]', tag));
+        selectedCategories.forEach(category => formData.append('categories[]', category));
+        formData.append('thumbnail', files[0]);
+        formData.append('user_id', auth.user.id.toString());
         try {
-            const response = await axios.post(route('admin.posts.store'), {
-                title: title,
-                meta_title: metaTitle,
-                content: value,
-                tags: selectedTags,
-                categories: selectedCategories,
-                thumbnail: files[0],
-                user_id: auth.user.id,
-            }, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
+            const response = await axios.post(route('admin.posts.store'), formData, {headers: {'Content-Type': 'multipart/form-data'}});
             toast.success(response.data.message);
             setTitle('');
             setMeta('');
@@ -60,7 +58,6 @@ const Blogs = ({blog,tags, categories,postTagIndexes, postCategoryIndexes}) => {
             setSelectedTags([]);
             setSelectedCategories([]);
             setFiles([]);
-            console.log(files[0])
         }catch (error) {
             console.error(error.request.response);
             toast.error('Something went wrong!');
@@ -70,19 +67,18 @@ const Blogs = ({blog,tags, categories,postTagIndexes, postCategoryIndexes}) => {
 
     const updateBlog = async (post) => {
         setLoading(true);
+        const formData = new FormData();
+        formData.append('_method', 'PUT');
+        formData.append('title', title);
+        formData.append('meta_title', metaTitle);
+        formData.append('content', value);
+        selectedTags.forEach(tag => formData.append('tags[]', tag));
+        selectedCategories.forEach(category => formData.append('categories[]', category));
+        formData.append('thumbnail', imageChanged ?  files[0] : image);
+        formData.append('user_id', auth.user.id.toString());
+
         try {
-            const response = await axios.put(route('admin.posts.update', post), {
-                title: title,
-                meta_title: metaTitle,
-                content: value,
-                tags: selectedTags,
-                categories: selectedCategories,
-                thumbnail: files[0],
-            }, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
+            const response = await axios.post(route('admin.posts.update', post), formData,{headers: {'Content-Type': 'multipart/form-data'}});
             toast.success(response.data.message);
         }catch (error) {
             console.error(error.request.response);
@@ -90,6 +86,14 @@ const Blogs = ({blog,tags, categories,postTagIndexes, postCategoryIndexes}) => {
         }
         setLoading(false);
     }
+
+    useEffect(() => {
+        if(image === ''){
+            setImageChanged(true);
+        }else{
+            setImageChanged(false);
+        }
+    },[image])
     return (
         <>
             <Head title="Add Blogs"/>
@@ -114,7 +118,7 @@ const Blogs = ({blog,tags, categories,postTagIndexes, postCategoryIndexes}) => {
                                     </button>
                                     <button
                                         className="bg-green-500 text-white active:bg-green-600 text-xs font-bold uppercase px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 hover:bg-green-400"
-                                        onClick={update ?  ()=> updateBlog(blog.id) : submitBlog()}
+                                        onClick={update ?  ()=> updateBlog(blog.id) : submitBlog}
                                         type="button">{loading ?
                                         <Spinner/>
                                         : update ? 'Update' : 'Add'}
