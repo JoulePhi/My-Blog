@@ -2,7 +2,7 @@ import AdminLayout from "@/Layouts/AdminLayout.jsx";
 import {Head} from "@inertiajs/react";
 import MultiSelect from "@/Components/Dashboard/MultiSelect";
 import RichEditor from "@/Components/Dashboard/RichEditor.jsx";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import Dropzone from "@/Components/Dashboard/Dropzone";
 import toast, { Toaster } from 'react-hot-toast';
 import Spinner from "@/Components/Spinner";
@@ -24,7 +24,6 @@ const Blogs = ({blog,tags, categories,postTagIndexes, postCategoryIndexes}) => {
 
 
     useEffect(() => {
-        console.log(blog)
         if (blog != null) {
             setTitle(blog.title);
             setMeta(blog.meta_title);
@@ -36,10 +35,7 @@ const Blogs = ({blog,tags, categories,postTagIndexes, postCategoryIndexes}) => {
         }
     }, []);
 
-
-
-
-    const submitBlog = async () => {
+    const submitBlog = useCallback(async () => {
         setLoading(true);
         const formData = new FormData();
         formData.append('title', title);
@@ -63,9 +59,11 @@ const Blogs = ({blog,tags, categories,postTagIndexes, postCategoryIndexes}) => {
             toast.error('Something went wrong!');
         }
         setLoading(false);
-    }
+    },[title, metaTitle, value, selectedTags, selectedCategories, files, auth]);
 
-    const updateBlog = async (post) => {
+
+
+    const updateBlog = useCallback(async (post) => {
         setLoading(true);
         const formData = new FormData();
         formData.append('_method', 'PUT');
@@ -85,7 +83,7 @@ const Blogs = ({blog,tags, categories,postTagIndexes, postCategoryIndexes}) => {
             toast.error('Something went wrong!');
         }
         setLoading(false);
-    }
+    },[title, metaTitle, value, selectedTags, selectedCategories, files, auth, imageChanged]);
 
     useEffect(() => {
         if(image === ''){

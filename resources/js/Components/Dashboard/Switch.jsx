@@ -1,11 +1,29 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
+import toast from "react-hot-toast";
+const Switcher = ({blog}) => {
+    const [isChecked, setIsChecked] = useState(false);
 
-const Switcher = () => {
-    const [isChecked, setIsChecked] = useState(false)
 
-    const handleCheckboxChange = () => {
-        setIsChecked(!isChecked)
+    useEffect(() => {
+        setIsChecked(blog.is_published);
+    },[blog])
+
+
+    const handleCheckboxChange = async () => {
+        try {
+            const formData = new FormData();
+            formData.append('_method', 'PUT');
+            const response = await axios.post(route('admin.post.publish', blog.id), formData,{headers: {'Content-Type': 'multipart/form-data'}});
+            console.log(response)
+            toast.success(response.data.message);
+            setIsChecked(response.data.post);
+        }catch (error) {
+            console.error(error.request.response);
+            toast.error('Something went wrong!');
+        }
     }
+
+
 
     return (
         <>

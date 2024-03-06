@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\ImageHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\PublishPostRequest;
 use App\Http\Requests\Admin\StorePostRequest;
 use App\Http\Requests\Admin\UpdatePostRequest;
 use App\Models\Category;
@@ -12,6 +13,7 @@ use App\Models\Tag;
 use App\Services\CRUD\PostService;
 use Exception;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
@@ -114,6 +116,17 @@ class PostController extends Controller
             $this->postService->delete($post->id);
             return response()->json(['message' => 'Post deleted successfully']);
         } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function publish(PublishPostRequest $request, $id)
+    {
+        try {
+            $post = $this->postService->publishPost($id);
+            return response()->json(['message' => 'Post state changed', 'post' => $post]);
+        }catch (Exception $e) {
             Log::error($e->getMessage());
             return response()->json(['message' => $e->getMessage()], 500);
         }

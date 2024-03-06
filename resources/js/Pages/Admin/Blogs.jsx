@@ -18,6 +18,9 @@ const Blogs = ({blogs}) => {
     const perPage = 5; // Number of items per page
     const offset = currentPage * perPage;
 
+
+
+
     const deleteTag = async (blog) => {
         const modalOptions = {
             title: "Confirm to Delete",
@@ -75,10 +78,7 @@ const Blogs = ({blogs}) => {
                     </div>
                 </td>
                 <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                    {blog.published_at}
-                </td>
-                <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                    <Switch/>
+                    <Switch blog={blog}/>
                 </td>
                 <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4 flex  ">
                     <a href={route('admin.posts.edit', blog.id)}
@@ -141,9 +141,6 @@ const Blogs = ({blogs}) => {
                                 </th>
                                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                                     Category
-                                </th>
-                                <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                    Published at
                                 </th>
                                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                                     Is Published

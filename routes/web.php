@@ -69,6 +69,8 @@ Route::middleware(['auth'])->group(function () {
             'update' => 'admin.categories.update',
             'destroy' => 'admin.categories.destroy',
         ]);
+
+        Route::put('admin/posts/{id}/publish', [PostController::class, 'publish'])->name('admin.post.publish');
     });
 });
 

@@ -3,6 +3,7 @@
 namespace App\Services\CRUD;
 
 use App\Models\Post;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -69,7 +70,7 @@ class PostService
 
     public function get ($id)
     {
-        return Post::where('id', $id)->first();
+        return Post::findOrFail($id);
     }
 
     public function getSelectedTags($post,$tags)
@@ -92,5 +93,25 @@ class PostService
             return $index !== false ? ['label' => $categories[$index]['label'], 'value' => $categoryId] : null;
         }, $postCategoryIds);
         return array_filter($postCategoryIndexes, fn ($item) => !is_null($item));
+    }
+
+
+    /**
+     * @throws Exception
+     */
+    public function publishPost($id)
+    {
+        DB::beginTransaction();
+        try {
+            $post = $this->get($id);
+            $post->is_published = !$post->is_published;
+            $post->published_at = Carbon::now();
+            $post->save();
+            DB::commit();
+            return $post->is_published;
+        }catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
     }
 }
