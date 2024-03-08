@@ -1,16 +1,19 @@
 import { useState } from 'react';
-import {Head, Link} from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import Navbar from "@/Components/Navbar";
-
+import Footer from '@/Components/Footer';
 export default function Authenticated({ user, header, children }) {
 
     return (
-            <>
-                <Head title={header}/>
-                <div className="px-20 bg-white">
-                    <Navbar/>
-                    <main>{children}</main>
-                </div>
-            </>
+        <>
+            <Head title={header} />
+            <Navbar />
+            <div className="xl:px-64 px-5 bg-gray-50 mx-auto">
+
+                <main>{children}</main>
+            </div>
+
+            <Footer />
+        </>
     );
 }
