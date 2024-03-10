@@ -1,13 +1,23 @@
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { getImage } from "@/Helpers/Helpers.jsx";
 import { LuArrowLeft, LuArrowRight } from "react-icons/lu";
+import { useEffect } from "react";
+import { Link } from "@inertiajs/react";
+import { LuChevronsRight } from "react-icons/lu";
+import PostCard from "@/Components/PostCard";
 
 
 
-const Home = () => {
+
+const Home = ({ recentPosts, allPosts }) => {
+
+    useEffect(() => {
+        console.log(allPosts);
+    }, []);
+
     return (
         <div>
-            <h1 className='font-bold mb-8 text-xl'>Recent Blog Posts</h1>
+            <h1 className='font-bold mb-8 text-xl'>Recent Blog</h1>
 
 
 
@@ -16,72 +26,66 @@ const Home = () => {
 
 
                     <div className="bg-white h-[28rem] md:h-full md:col-span-2 flex flex-col shadow-lg rounded-xl lg:row-start-1 lg:row-end-3 lg:col-end-2 relative overflow-hidden ">
-                        <img src={getImage('images/blog1.png')} className=' object-cover md:rounded-lg w-full h-1/2 md:h-full' alt="" />
+                        <img src={recentPosts[0].thumbnail} className=' object-cover md:rounded-lg w-full h-1/2 md:h-full' alt="" />
                         <div className="hidden lg:block col-start-1 row-start-2 absolute inset-0 opacity-0 hover:opacity-100 duration-300 bg-black/70 rounded-lg">
                             <div className="flex items-center justify-center h-full">
                                 <button className="px-6 py-4 text-white font-poppins font-bold border hover:underline">Read More</button>
                             </div>
                         </div>
                         <div className='flex flex-col  justify-between  p-4 flex-grow md:hidden'>
-                            <span className="font-semibold text-purple">Olivia Rhye • 1 Jan 2023</span>
-                            <span className="font-semibold text-xl text-sidebarbg ">UX review presentations</span>
+                            <span className="font-semibold text-purple">Olivia Rhye • {new Date(recentPosts[0].published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                            <span className="font-semibold text-xl text-sidebarbg ">{recentPosts[0].title}</span>
                             <p className="text-grey line-clamp-2">How do you create compelling presentations that
                                 wow your colleagues and
                                 impress your
                                 managers?</p>
                             <div className='w-full overflow-hidden'>
                                 <div className='flex gap-4 overflow-y-auto scrollbar-hide'>
-                                    <span
-                                        className='text-purple bg-purple/5 font-medium px-4 py-1 rounded-full text-xs'>Design</span>
-                                    <span
-                                        className='text-blue bg-blue/5 font-medium px-4 py-1 rounded-full text-xs'>Research</span>
-                                    <span
-                                        className='text-magenta bg-magenta/5 font-medium px-4 py-1 rounded-full text-xs'>Presentation</span>
+                                    {
+                                        recentPosts[0].tags.map((tag, i) => (
+                                            <span key={i}
+                                                className={`text-purple bg-purple/5 font-medium px-4 py-1 rounded-full text-xs`}>{tag.title}</span>
+                                        ))
+                                    }
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div className='flex flex-col lg:flex-row md:h-full h-[28rem]  bg-white shadow-xl rounded-xl overflow-hidden pr-4'>
-                        <img src={getImage('images/blog2.png')} className='object-cover md:rounded-lg lg:w-1/2 w-full h-1/2 md:h-full '
+                        <img src={recentPosts[1].thumbnail} className='object-cover md:rounded-lg lg:w-1/2 w-full h-1/2 md:h-full '
                             alt="" />
                         <div className='lg:flex  flex flex-col justify-between flex-grow p-4 md:hidden'>
-                            <span className="font-semibold text-purple">Olivia Rhye • 1 Jan 2023</span>
-                            <span className="font-semibold xl:text-2xl text-xl text-sidebarbg text-ellipsis">UX review presentations</span>
-                            <p className="text-grey line-clamp-2 lg:line-clamp-3">How do you create compelling presentations that wow your
-                                colleagues and
-                                impress your
-                                managers?</p>
+                            <span className="font-semibold text-purple">Olivia Rhye • {new Date(recentPosts[1].published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                            <span className="font-semibold xl:text-2xl text-xl text-sidebarbg text-ellipsis line-clamp-2">{recentPosts[1].title}</span>
+                            <p className="text-grey line-clamp-2 text-sm lg:line-clamp-3">{recentPosts[1].content}</p>
                             <div className='w-full overflow-hidden'>
                                 <div className='flex gap-4 overflow-y-auto scrollbar-hide'>
-                                    <span
-                                        className='text-purple bg-purple/5 font-medium px-4 py-1 rounded-full text-xs'>Design</span>
-                                    <span
-                                        className='text-blue bg-blue/5 font-medium px-4 py-1 rounded-full text-xs'>Research</span>
-                                    <span
-                                        className='text-magenta bg-magenta/5 font-medium px-4 py-1 rounded-full text-xs'>Presentation</span>
+                                    {
+                                        recentPosts[0].tags.map((tag, i) => (
+                                            <span key={i}
+                                                className={`text-purple bg-purple/5 font-medium px-4 py-1 rounded-full text-xs line-clamp-1  text-ellipsis text-nowrap`}>{tag.title}</span>
+                                        ))
+                                    }
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className='flex flex-col lg:flex-row md:h-full h-[28rem]  bg-white shadow-xl rounded-xl overflow-hidden'>
-                        <img src={getImage('images/blog2.png')} className='object-cover md:rounded-lg lg:w-1/2 w-full h-1/2 md:h-full '
+                        <img src={recentPosts[2].thumbnail} className='object-cover md:rounded-lg lg:w-1/2 w-full h-1/2 md:h-full '
                             alt="" />
                         <div className='lg:flex  flex flex-col justify-between flex-grow p-4 md:hidden'>
-                            <span className="font-semibold text-purple">Olivia Rhye • 1 Jan 2023</span>
-                            <span className="font-semibold lg:text-2xl text-xl text-sidebarbg">UX review presentations</span>
-                            <p className="text-grey line-clamp-2 lg:line-clamp-3">How do you create compelling presentations that wow your
-                                colleagues and
-                                impress your
-                                managers?</p>
+                            <span className="font-semibold text-purple">Olivia Rhye • {new Date(recentPosts[2].published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                            <span className="font-semibold lg:text-2xl text-xl text-sidebarbg line-clamp-2">{recentPosts[2].title}</span>
+                            <p className="text-grey line-clamp-2 text-sm lg:line-clamp-3">{recentPosts[2].content}</p>
                             <div className='w-full overflow-hidden'>
                                 <div className='flex gap-4 overflow-y-auto scrollbar-hide'>
-                                    <span
-                                        className='text-purple bg-purple/5 font-medium px-4 py-1 rounded-full text-xs'>Design</span>
-                                    <span
-                                        className='text-blue bg-blue/5 font-medium px-4 py-1 rounded-full text-xs'>Research</span>
-                                    <span
-                                        className='text-magenta bg-magenta/5 font-medium px-4 py-1 rounded-full text-xs'>Presentation</span>
+                                    {
+                                        recentPosts[0].tags.map((tag, i) => (
+                                            <span key={i}
+                                                className={`text-purple bg-purple/5 font-medium px-4 py-1 rounded-full text-xs line-clamp-1 text-ellipsis text-nowrap`}>{tag.title}</span>
+                                        ))
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -91,59 +95,29 @@ const Home = () => {
                 </div>
             </div>
 
-            <h1 className='font-bold mb-8 text-xl my-10'>All Blog Posts</h1>
 
 
-            <div className='flex flex-col items-center justify-center md:grid md:grid-cols-3 xl:grid-cols-4 gap-6 h-[full] grid-rows-2 mb-10'>
-                {
-                    Array(8).fill().map((_, i) => (
-                        <div className=' flex flex-col bg-white shadow-lg rounded-xl h-[28rem]  overflow-hidden' key={i}>
-                            <img src={getImage('images/blog1.png')} className=' object-cover  w-full h-1/2'
-                                alt="" />
-                            <div className='flex flex-col  justify-between  p-4 flex-grow '>
-                                <span className="font-semibold text-purple">Olivia Rhye • 1 Jan 2023</span>
-                                <span className="font-semibold text-xl text-sidebarbg">UX review presentations</span>
-                                <p className="text-grey line-clamp-2">How do you create compelling presentations that
-                                    wow your colleagues and
-                                    impress your
-                                    managers?</p>
-                                <div className='w-full overflow-hidden'>
-                                    <div className='flex gap-4 overflow-y-auto scrollbar-hide'>
-                                        <span
-                                            className='text-purple bg-purple/5 font-medium px-4 py-1 rounded-full text-xs'>Design</span>
-                                        <span
-                                            className='text-blue bg-blue/5 font-medium px-4 py-1 rounded-full text-xs'>Research</span>
-                                        <span
-                                            className='text-magenta bg-magenta/5 font-medium px-4 py-1 rounded-full text-xs'>Presentation</span>
-                                    </div>
-                                </div>
-                            </div>
+
+
+            {
+                Object.entries(allPosts).map(([category, posts]) => (
+                    <div key={category}>
+                        <span className="w-full flex justify-between items-center">
+                            <h1 className='font-bold mb-8 text-xl my-10 uppercase'>{category}</h1>
+                            <Link className="hover:underline flex items-center text-lg justify-between " href={"/category/" + category}>See All  <LuChevronsRight />  </Link>
+                        </span>
+                        <div className='flex flex-col items-center justify-center md:grid md:grid-cols-3 xl:grid-cols-4 gap-6 h-[full]  mb-10'>
+                            {posts.map((post, i) => (
+                                <PostCard post={post} key={i} />
+                            ))}
                         </div>
-                    ))
-                }
-            </div>
+                    </div>
+                ))
+            }
 
 
-            <div className="flex justify-between">
-                <button className="flex items-center text-grey">
-                    <LuArrowLeft />
-                    <span className='text-grey text-sm ml-6'>Previous</span>
-                </button>
 
-                <div className='md:flex hidden'>
-                    <button className="w-10 h-10 text-purple font-semibold bg-purple/5 rounded-lg">1</button>
-                    <button className="w-10 h-10    text-grey">2</button>
-                    <button className="w-10 h-10    text-grey">3</button>
-                    <button className="w-10 h-10    text-grey">...</button>
-                    <button className="w-10 h-10    text-grey">8</button>
-                    <button className="w-10 h-10    text-grey">9</button>
-                    <button className="w-10 h-10    text-grey">10</button>
-                </div>
-                <button className="flex items-center text-grey">
-                    <span className='text-grey text-sm mr-6'>Next</span>
-                    <LuArrowRight />
-                </button>
-            </div>
+
 
         </div>
     );

@@ -12,7 +12,7 @@ export default function Paginate({ links }) {
                     </Link>
 
                     <div>
-                        {links.slice(1, links.length - 1).map((link, index) => (
+                        {links.slice(Math.max(1, links.findIndex(link => link.active) - 2), links.findIndex(link => link.active) + 3).map((link, index) => (
                             <Link href={link.url} key={index} className={`mx-1 px-3 py-2 border border-gray-300 rounded-md  ${link.active ? 'underline text-black' : 'text-blue'}`} dangerouslySetInnerHTML={{ __html: `${link.label}` }} />
                         ))}
                     </div>

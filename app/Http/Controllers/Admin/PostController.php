@@ -32,7 +32,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $blogs = Post::with(['tags', 'categories'])->paginate(5);
+        $blogs = Post::with(['tags', 'categories'])->paginate(5)->onEachSide(3);
 
         return Inertia::render('Admin/Blogs', ['blogs' => $blogs]);
     }

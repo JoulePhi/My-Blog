@@ -13,54 +13,41 @@ class PostController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Home');
+        $recentPosts = Post::with(['tags', 'categories'])->latest()->where('is_published', 1)->take(3)->get();
+        $allPosts = Post::with(['tags', 'categories'])
+            ->where('is_published', 1)
+            ->get()
+            ->groupBy(function ($post) {
+                return $post->categories->first()->title;
+            })
+            ->map(function ($posts) {
+                return $posts->take(4);
+            });
+        return Inertia::render('Home', [
+            'recentPosts' => $recentPosts,
+            'allPosts' => $allPosts
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function tag($tag)
     {
-        //
+        $posts = Post::with(['tags', 'categories'])
+            ->whereHas('tags', function ($query) use ($tag) {
+                $query->where('title', $tag);
+            })
+            ->where('is_published', 1)
+            ->paginate(8)->onEachSide(3);
+        return Inertia::render('FilteredPosts', ['title' => 'Tag / ' . $tag, 'posts' => $posts]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function category($category)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Post $post)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Post $post)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Post $post)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Post $post)
-    {
-        //
+        $posts = Post::with(['tags', 'categories'])
+            ->whereHas('categories', function ($query) use ($category) {
+                $query->where('title', $category);
+            })
+            ->where('is_published', 1)
+            ->paginate(8)->onEachSide(3);
+        return Inertia::render('FilteredPosts', ['title' => 'Category / ' . $category, 'posts' => $posts]);
     }
 }

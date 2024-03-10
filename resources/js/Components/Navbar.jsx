@@ -10,10 +10,8 @@ export default function Navbar() {
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
         if (!isMenuOpen) {
-            // Disable scrolling when the menu is open
             document.body.style.overflow = 'hidden';
         } else {
-            // Enable scrolling when the menu is closed
             document.body.style.overflow = 'unset';
         }
     }
@@ -24,8 +22,8 @@ export default function Navbar() {
                 {/* <h1 className='font-bold  tracking-widest'>Dzulfikar Sadid</h1> */}
                 <span className="fill-white"><Logo /></span>
                 <div className="hidden  w-full md:flex justify-end">
-                    <div className='flex w-1/4 justify-evenly'>
-                        <Link className="hover:underline block" href="#"> Blog </Link>
+                    <div className='flex w-1/6 justify-between'>
+                        <Link className="hover:underline block" href={route('home')}> Home </Link>
                         <Link className="hover:underline block" href="#"> Project </Link>
                         <Link className="hover:underline block" href="#"> About </Link>
                     </div>
