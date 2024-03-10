@@ -27,8 +27,8 @@ class TagController extends Controller
      */
     public function index()
     {
-        $tags = Tag::withCount('posts')->get();
-        return Inertia::render('Admin/Tags',['tags' => $tags]);
+        $tags = Tag::withCount('posts')->paginate(5);
+        return Inertia::render('Admin/Tags', ['tags' => $tags]);
     }
 
     /**
@@ -58,7 +58,6 @@ class TagController extends Controller
      */
     public function show(Tag $tag)
     {
-
     }
 
     /**
@@ -67,7 +66,7 @@ class TagController extends Controller
     public function edit(Tag $tag)
     {
         Log::debug($tag);
-        return Inertia::render('Admin/Form/Tags',['tag' => $tag]);
+        return Inertia::render('Admin/Form/Tags', ['tag' => $tag]);
     }
 
     /**
@@ -76,7 +75,7 @@ class TagController extends Controller
     public function update(UpdateTagRequest $request, Tag $tag)
     {
         try {
-            $this->tagService->update( $tag->id, $request->validated());
+            $this->tagService->update($tag->id, $request->validated());
             return response()->json(['message' => 'Tag updated successfully']);
         } catch (Exception $e) {
             Log::error($e->getMessage());

@@ -32,9 +32,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $blogs = Post::with(['tags','categories'])->get();
+        $blogs = Post::with(['tags', 'categories'])->paginate(5);
 
-        return Inertia::render('Admin/Blogs',['blogs' => $blogs]);
+        return Inertia::render('Admin/Blogs', ['blogs' => $blogs]);
     }
 
     /**
@@ -48,7 +48,7 @@ class PostController extends Controller
         $categories = Category::all()->map(function ($category) {
             return ['value' => $category->id, 'label' => $category->title];
         });
-        return Inertia::render('Admin/Form/Blogs',['tags' => $tags,'categories' => $categories]);
+        return Inertia::render('Admin/Form/Blogs', ['tags' => $tags, 'categories' => $categories]);
     }
 
     /**
@@ -71,7 +71,6 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-
     }
 
     /**
@@ -79,16 +78,16 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        $post->load('tags','categories');
+        $post->load('tags', 'categories');
         $tags = Tag::all()->map(function ($tag) {
             return ['value' => $tag->id, 'label' => $tag->title];
         });
         $categories = Category::all()->map(function ($category) {
             return ['value' => $category->id, 'label' => $category->title];
         });
-        $postTagIndexes = $this->postService->getSelectedTags($post,$tags);
-        $postCategoryIndexes = $this->postService->getSelectedCategories($post,$categories);
-        return Inertia::render('Admin/Form/Blogs',['blog' => $post,'tags' => $tags,'categories' => $categories,'postTagIndexes' => $postTagIndexes,'postCategoryIndexes' => $postCategoryIndexes]);
+        $postTagIndexes = $this->postService->getSelectedTags($post, $tags);
+        $postCategoryIndexes = $this->postService->getSelectedCategories($post, $categories);
+        return Inertia::render('Admin/Form/Blogs', ['blog' => $post, 'tags' => $tags, 'categories' => $categories, 'postTagIndexes' => $postTagIndexes, 'postCategoryIndexes' => $postCategoryIndexes]);
     }
 
     /**
@@ -126,7 +125,7 @@ class PostController extends Controller
         try {
             $post = $this->postService->publishPost($id);
             return response()->json(['message' => 'Post state changed', 'post' => $post]);
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             Log::error($e->getMessage());
             return response()->json(['message' => $e->getMessage()], 500);
         }

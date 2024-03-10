@@ -12,50 +12,81 @@ const Home = () => {
 
 
             <div className="sm:flex justify-center w-full">
-                <div className='grid grid-cols-2 grid-rows-2 gap-4 h-80 md:h-[25rem] xl:h-[30rem]  w-full place-content-center aspect-video'>
+                <div className=' flex flex-col  md:grid md:grid-cols-2  md:grid-rows-2 gap-4   md:h-[30rem]  w-full place-content-center aspect-video'>
 
 
-                    <div className="bg-white col-start-1 col-end-3 lg:row-start-1 lg:row-end-3 lg:col-end-2 relative overflow-hidden ">
-                        <img src={getImage('images/blog1.png')} className=' object-cover rounded-lg w-full h-full' alt="" />
-                        <div className=" col-start-1 row-start-2 absolute inset-0 opacity-0 hover:opacity-100 duration-300 bg-black/70 rounded-lg">
+                    <div className="bg-white h-[28rem] md:h-full md:col-span-2 flex flex-col shadow-lg rounded-xl lg:row-start-1 lg:row-end-3 lg:col-end-2 relative overflow-hidden ">
+                        <img src={getImage('images/blog1.png')} className=' object-cover md:rounded-lg w-full h-1/2 md:h-full' alt="" />
+                        <div className="hidden lg:block col-start-1 row-start-2 absolute inset-0 opacity-0 hover:opacity-100 duration-300 bg-black/70 rounded-lg">
                             <div className="flex items-center justify-center h-full">
                                 <button className="px-6 py-4 text-white font-poppins font-bold border hover:underline">Read More</button>
                             </div>
                         </div>
+                        <div className='flex flex-col  justify-between  p-4 flex-grow md:hidden'>
+                            <span className="font-semibold text-purple">Olivia Rhye • 1 Jan 2023</span>
+                            <span className="font-semibold text-xl text-sidebarbg ">UX review presentations</span>
+                            <p className="text-grey line-clamp-2">How do you create compelling presentations that
+                                wow your colleagues and
+                                impress your
+                                managers?</p>
+                            <div className='w-full overflow-hidden'>
+                                <div className='flex gap-4 overflow-y-auto scrollbar-hide'>
+                                    <span
+                                        className='text-purple bg-purple/5 font-medium px-4 py-1 rounded-full text-xs'>Design</span>
+                                    <span
+                                        className='text-blue bg-blue/5 font-medium px-4 py-1 rounded-full text-xs'>Research</span>
+                                    <span
+                                        className='text-magenta bg-magenta/5 font-medium px-4 py-1 rounded-full text-xs'>Presentation</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div className='flex h-full  bg-white shadow-xl rounded-xl overflow-hidden'>
-                        <img src={getImage('images/blog2.png')} className='lg:w-1/2 w-full aspect-video object-cover '
+                    <div className='flex flex-col lg:flex-row md:h-full h-[28rem]  bg-white shadow-xl rounded-xl overflow-hidden pr-4'>
+                        <img src={getImage('images/blog2.png')} className='object-cover md:rounded-lg lg:w-1/2 w-full h-1/2 md:h-full '
                             alt="" />
-                        <div className='lg:flex flex-col  justify-between flex-grow p-4 hidden'>
+                        <div className='lg:flex  flex flex-col justify-between flex-grow p-4 md:hidden'>
                             <span className="font-semibold text-purple">Olivia Rhye • 1 Jan 2023</span>
-                            <span className="font-semibold text-2xl text-sidebarbg">UX review presentations</span>
-                            <p className="text-grey line-clamp-3">How do you create compelling presentations that wow your
+                            <span className="font-semibold xl:text-2xl text-xl text-sidebarbg text-ellipsis">UX review presentations</span>
+                            <p className="text-grey line-clamp-2 lg:line-clamp-3">How do you create compelling presentations that wow your
                                 colleagues and
                                 impress your
                                 managers?</p>
-                            <div className='flex gap-4'>
-                                <span className='text-purple bg-purple/5 font-medium px-4 py-1 rounded-full'>Design</span>
-                                <span className='text-blue bg-blue/5 font-medium px-4 py-1 rounded-full'>Research</span>
+                            <div className='w-full overflow-hidden'>
+                                <div className='flex gap-4 overflow-y-auto scrollbar-hide'>
+                                    <span
+                                        className='text-purple bg-purple/5 font-medium px-4 py-1 rounded-full text-xs'>Design</span>
+                                    <span
+                                        className='text-blue bg-blue/5 font-medium px-4 py-1 rounded-full text-xs'>Research</span>
+                                    <span
+                                        className='text-magenta bg-magenta/5 font-medium px-4 py-1 rounded-full text-xs'>Presentation</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div className='flex h-full  bg-white shadow-xl rounded-xl overflow-hidden'>
-                        <img src={getImage('images/blog2.png')} className='lg:w-1/2 w-full aspect-video object-cover '
+                    <div className='flex flex-col lg:flex-row md:h-full h-[28rem]  bg-white shadow-xl rounded-xl overflow-hidden'>
+                        <img src={getImage('images/blog2.png')} className='object-cover md:rounded-lg lg:w-1/2 w-full h-1/2 md:h-full '
                             alt="" />
-                        <div className='lg:flex flex-col  justify-between flex-grow p-4 hidden'>
+                        <div className='lg:flex  flex flex-col justify-between flex-grow p-4 md:hidden'>
                             <span className="font-semibold text-purple">Olivia Rhye • 1 Jan 2023</span>
-                            <span className="font-semibold text-2xl text-sidebarbg">UX review presentations</span>
-                            <p className="text-grey line-clamp-3">How do you create compelling presentations that wow your
+                            <span className="font-semibold lg:text-2xl text-xl text-sidebarbg">UX review presentations</span>
+                            <p className="text-grey line-clamp-2 lg:line-clamp-3">How do you create compelling presentations that wow your
                                 colleagues and
                                 impress your
                                 managers?</p>
-                            <div className='flex gap-4'>
-                                <span className='text-purple bg-purple/5 font-medium px-4 py-1 rounded-full'>Design</span>
-                                <span className='text-blue bg-blue/5 font-medium px-4 py-1 rounded-full'>Research</span>
+                            <div className='w-full overflow-hidden'>
+                                <div className='flex gap-4 overflow-y-auto scrollbar-hide'>
+                                    <span
+                                        className='text-purple bg-purple/5 font-medium px-4 py-1 rounded-full text-xs'>Design</span>
+                                    <span
+                                        className='text-blue bg-blue/5 font-medium px-4 py-1 rounded-full text-xs'>Research</span>
+                                    <span
+                                        className='text-magenta bg-magenta/5 font-medium px-4 py-1 rounded-full text-xs'>Presentation</span>
+                                </div>
                             </div>
                         </div>
                     </div>
+
 
                 </div>
             </div>

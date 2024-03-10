@@ -1,10 +1,10 @@
 import AdminLayout from "@/Layouts/AdminLayout.jsx";
-import {Head} from "@inertiajs/react";
-import {useEffect, useState} from "react";
-import toast, {Toaster} from "react-hot-toast";
+import { Head, Link } from "@inertiajs/react";
+import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import Spinner from "@/Components/Spinner.jsx";
 
-const Categories = ({category}) => {
+const Categories = ({ category }) => {
     const [title, setTitle] = useState('');
     const [slug, setSlug] = useState('');
     const [metaTitle, setMetaTitle] = useState('');
@@ -13,7 +13,7 @@ const Categories = ({category}) => {
 
     useEffect(() => {
         console.log(category);
-        if(category != null){
+        if (category != null) {
             setTitle(category.title);
             setMetaTitle(category.meta_title);
             setUpdate(true);
@@ -61,9 +61,9 @@ const Categories = ({category}) => {
 
     return (
         <>
-            <Head title="Add Categories"/>
-            <a href={route('admin.categories.index')}
-               className="text-2xl font-bold font-opensans text-slate-800 hover:underline"> {"<< Back"} </a>
+            <Head title="Add Categories" />
+            <Link href={route('admin.categories.index')}
+                className="text-2xl font-bold font-opensans text-slate-800 hover:underline"> {"<< Back"} </Link>
 
             <Toaster position="bottom-right" />
             <div className='flex justify-center'>
@@ -72,17 +72,17 @@ const Categories = ({category}) => {
                     <div className="grid grid-cols-2  gap-8">
                         <input
                             className="w-full bg-bg text-gray-900 mt-2 p-3 rounded-lg border-none focus:outline-none focus:shadow-outline"
-                            type="text" placeholder="Title" onChange={handleTitleChange} value={title}/>
+                            type="text" placeholder="Title" onChange={handleTitleChange} value={title} />
 
                         <input
                             className="w-full bg-bg text-gray-900 mt-2 p-3 rounded-lg border-none focus:outline-none focus:shadow-outline"
                             type="text" placeholder="Meta Title" onChange={(e) => setMetaTitle(e.target.value)}
-                            value={metaTitle}/>
+                            value={metaTitle} />
 
                         <div className='col-span-2'>
                             <input
                                 className="w-full bg-bg text-gray-900 mt-2 p-3 rounded-lg border-none focus:outline-none focus:shadow-outline"
-                                type="text" placeholder="Slug" readOnly value={slug}/>
+                                type="text" placeholder="Slug" readOnly value={slug} />
                         </div>
 
 
@@ -92,8 +92,8 @@ const Categories = ({category}) => {
                                 className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 hover:bg-indigo-400"
                                 onClick={() => update ? updateCategory(category.id) : submitCategory()}
                                 type="button">{loading ?
-                                <Spinner/>
-                                : update ? 'Update' : 'Add'}
+                                    <Spinner />
+                                    : update ? 'Update' : 'Add'}
                             </button>
                         </div>
                     </div>
@@ -105,6 +105,6 @@ const Categories = ({category}) => {
 }
 
 
-Categories.layout = (page) => <AdminLayout children={page}/>
+Categories.layout = (page) => <AdminLayout children={page} />
 
 export default Categories;

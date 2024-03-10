@@ -1,12 +1,11 @@
 import AdminLayout from "@/Layouts/AdminLayout.jsx";
-import {Head} from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import Edit from "@/Assets/Icons/Edit.jsx";
 import Trash from "@/Assets/Icons/Trash.jsx";
 import toast from "react-hot-toast";
-import {confirmAlert} from "react-confirm-alert";
+import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import { useState} from "react";
-import ReactPaginate from "react-paginate";
+import Paginate from "@/Components/Dashboard/Paginate";
 
 const Categories = ({ categories }) => {
 
@@ -17,7 +16,7 @@ const Categories = ({ categories }) => {
             buttons: [
                 {
                     label: "Yes",
-                    onClick: async () =>{
+                    onClick: async () => {
                         try {
                             const response = await axios.delete(route('admin.categories.destroy', category));
                             toast.success(response.data.message);
@@ -36,19 +35,13 @@ const Categories = ({ categories }) => {
 
     }
 
-    const [currentPage, setCurrentPage] = useState(0);
 
-    const perPage = 5; // Number of items per page
-    const offset = currentPage * perPage;
-
-    // Current page data
-    const currentPageData = categories
-        .slice(offset, offset + perPage)
-        .map( (category,index) => {
+    const currentPageData = categories.data
+        .map((category, index) => {
             return (
                 <tr key={index}>
                     <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
-                        {currentPage * perPage + index + 1}
+                        {(categories.current_page - 1) * categories.per_page + index + 1}
                     </th>
                     <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
                         {category.title}
@@ -63,29 +56,24 @@ const Categories = ({ categories }) => {
                         {category.posts_count}
                     </td>
                     <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4 flex  ">
-                        <a href={route('admin.categories.edit', category.id)}
-                           className="p-1 text-white bg-blue-600 rounded-lg hover:bg-blue-500  flex justify-center items-center mr-2 ">
-                            <Edit/>
-                        </a>
+                        <Link href={route('admin.categories.edit', category.id)}
+                            className="p-1 text-white bg-sky-600 rounded-lg hover:bg-sky-500  flex justify-center items-center mr-2 ">
+                            <Edit />
+                        </Link>
                         <button onClick={() => deleteCategory(category)}
-                                className="p-1 text-white bg-red-500 hover:bg-red-400 rounded-lg   flex justify-center items-center">
-                            <Trash/>
+                            className="p-1 text-white bg-red-500 hover:bg-red-400 rounded-lg   flex justify-center items-center">
+                            <Trash />
                         </button>
                     </td>
                 </tr>
             )
         });
 
-    // Page count
-    const pageCount = Math.ceil(categories.length / perPage);
 
-    function handlePageClick({selected: selectedPage}) {
-        setCurrentPage(selectedPage);
-    }
 
     return (
         <>
-            <Head title="Categories"/>
+            <Head title="Categories" />
             <h1 className='font-bold text-4xl'>My Blogs 🌟</h1>
             <div className="w-full  mt-24">
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-xl ">
@@ -95,10 +83,10 @@ const Categories = ({ categories }) => {
                                 <h3 className="font-semibold text-base text-blueGray-700">Categories</h3>
                             </div>
                             <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-                                <a href={route('admin.categories.create')}
-                                   className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 hover:bg-indigo-400"
-                                   type="button">Add
-                                </a>
+                                <Link href={route('admin.categories.create')}
+                                    className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 hover:bg-indigo-400"
+                                    type="button">Add
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -106,57 +94,35 @@ const Categories = ({ categories }) => {
                     <div className="block w-full overflow-x-auto">
                         <table className="items-center bg-transparent w-full border-collapse ">
                             <thead>
-                            <tr>
-                                <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                    No
-                                </th>
-                                <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                    Title
-                                </th>
-                                <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                    Meta Title
-                                </th>
-                                <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                    Slug
-                                </th>
-                                <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                    Total Blogs
-                                </th>
-                                <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                    Actions
-                                </th>
-                            </tr>
+                                <tr>
+                                    <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                        No
+                                    </th>
+                                    <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                        Title
+                                    </th>
+                                    <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                        Meta Title
+                                    </th>
+                                    <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                        Slug
+                                    </th>
+                                    <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                        Total Blogs
+                                    </th>
+                                    <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                        Actions
+                                    </th>
+                                </tr>
                             </thead>
 
                             <tbody>
-                            {currentPageData}
+                                {currentPageData}
 
                             </tbody>
 
                         </table>
-                        <div className='flex justify-end m-2 '>
-                            <ReactPaginate
-                                nextLabel=">"
-                                onPageChange={handlePageClick}
-                                pageRangeDisplayed={3}
-                                marginPagesDisplayed={2}
-                                pageCount={pageCount}
-
-                                previousLabel="<"
-                                pageClassName="hover:bg-red-200 page-item"
-                                pageLinkClassName="relative block py-2 px-3 -ml-px leading-normal text-blue bg-white border border-gray-200 no-underline hover:text-blue-800 hover:bg-gray-200"
-                                previousClassName="page-item"
-                                previousLinkClassName="relative block py-2 px-3 -ml-px leading-normal text-blue bg-blue-500 text-white border border-gray-200 no-underline  hover:bg-blue-400 rounded-md mr-4 "
-                                nextClassName="page-item"
-                                nextLinkClassName="relative block py-2 px-3 -ml-px leading-normal text-blue bg-blue-500 text-white border border-gray-200 no-underline  hover:bg-blue-400 rounded-md ml-4"
-                                breakLabel="..."
-                                breakClassName="page-item"
-                                breakLinkClassName="relative block py-2 px-3 -ml-px leading-normal text-blue bg-white border border-gray-200 no-underline hover:text-blue-800 hover:bg-gray-200"
-                                containerClassName="flex list-reset pl-0 rounded "
-                                activeClassName="underline font-bold "
-                                renderOnZeroPageCount={null}
-                            />
-                        </div>
+                        <Paginate links={categories.links} />
 
                     </div>
                 </div>
@@ -165,6 +131,6 @@ const Categories = ({ categories }) => {
     )
 }
 
-Categories.layout = page => <AdminLayout children={page}/>
+Categories.layout = page => <AdminLayout children={page} />
 
 export default Categories;

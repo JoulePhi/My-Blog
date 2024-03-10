@@ -27,8 +27,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::withCount('posts')->get();
-        return Inertia::render('Admin/Categories',['categories' => $categories]);
+        $categories = Category::withCount('posts')->paginate(5);
+        return Inertia::render('Admin/Categories', ['categories' => $categories]);
     }
 
     /**
@@ -66,7 +66,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return Inertia::render('Admin/Form/Categories',['category' => $category]);
+        return Inertia::render('Admin/Form/Categories', ['category' => $category]);
     }
 
     /**
@@ -75,7 +75,7 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request, Category $category)
     {
         try {
-            $this->categoryService->update( $category->id, $request->validated());
+            $this->categoryService->update($category->id, $request->validated());
             return response()->json(['message' => 'Category updated successfully']);
         } catch (Exception $e) {
             Log::error($e->getMessage());
