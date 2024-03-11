@@ -36,6 +36,7 @@ Route::get('/category/{category}', [PC::class, 'category'])->name('category');
 Route::get('/post/{slug}', [PC::class, 'detail'])->name('detail');
 Route::post('/comment', [CC::class, 'publish'])->name('comment');
 Route::get('/comment', [CC::class, 'get'])->name('comment.get');
+Route::get('/search/{query}', [PC::class, 'search'])->name('search');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

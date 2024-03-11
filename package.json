@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "@tanstack/react-table": "^8.13.2",
+        "lodash.debounce": "^4.0.8",
         "quill": "^2.0.0-rc.2",
         "react-confirm-alert": "^3.0.6",
         "react-dropzone": "^14.2.3",

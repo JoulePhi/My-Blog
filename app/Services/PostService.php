@@ -55,4 +55,15 @@ class PostService
             ->get();
         return ['post' => $post, 'relatedPosts' => $relatedPosts];
     }
+
+    public function search($query)
+    {
+        return Post::with(['tags', 'categories'])
+            ->select('id', 'title', 'slug', 'is_published', 'thumbnail')
+            ->where('title', 'like', '%' . $query . '%')
+            ->orWhere('content', 'like', '%' . $query . '%')
+            ->where('is_published', 1)
+            ->take(4)
+            ->get();
+    }
 }

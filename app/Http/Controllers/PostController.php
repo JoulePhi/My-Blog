@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use App\Services\PostService;
+use Request;
 
 class PostController extends Controller
 {
@@ -38,5 +39,11 @@ class PostController extends Controller
     {
         $data = $this->postService->getDetailPost($slug);
         return Inertia::render('DetailPost', $data);
+    }
+
+    public function search($query)
+    {
+        $posts = $this->postService->search($query);
+        return response()->json($posts);
     }
 }

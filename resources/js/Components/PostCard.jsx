@@ -8,8 +8,8 @@ export default function PostCard({ post }) {
     return (
         <>
             <div className=' flex flex-col bg-white shadow-lg rounded-xl h-[28rem]  overflow-hidden' >
-                <img src={post.thumbnail} className=' object-cover  w-full h-1/2'
-                    alt="" />
+                <Link className="w-full h-1/2" href={'/post/' + post.slug}><img src={post.thumbnail} className=' object-cover  w-full h-full'
+                    alt="" /></Link>
                 <div className='flex flex-col  justify-between  p-4 flex-grow '>
                     <span className="font-semibold text-purple">Dzulfikar Sadid • {new Date(post.published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
                     <Link href={'/post/' + post.slug} className="font-semibold text-xl text-sidebarbg line-clamp-2 hover:underline">{post.title}</Link>
