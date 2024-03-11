@@ -44,7 +44,7 @@ class PostService
 
     public function getDetailPost($slug)
     {
-        $post =  Post::with(['tags', 'categories'])->where('slug', $slug)->firstOrFail();
+        $post =  Post::with(['tags', 'categories'])->withCount('comments')->where('slug', $slug)->firstOrFail();
         $relatedPosts = Post::with(['tags', 'categories'])
             ->where('is_published', 1)
             ->whereHas('tags', function ($query) use ($post) {

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Services\CRUD\PostService;
 use App\Services\PostService as PS;
+use App\Services\CommentService as CS;
 use App\Services\CRUD\CategoryService;
 use App\Services\CRUD\TagService;
 use App\Services\CRUD\CommentService;
@@ -30,6 +31,9 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->singleton(PS::class, function ($app) {
             return new PS();
+        });
+        $this->app->singleton(CS::class, function ($app) {
+            return new CS();
         });
     }
 

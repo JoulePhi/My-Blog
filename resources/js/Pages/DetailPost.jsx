@@ -5,7 +5,9 @@ import PostCard from "@/Components/PostCard";
 import Comment from "@/Components/Comment";
 const DetailPost = ({ post, relatedPosts }) => {
 
-
+    useEffect(() => {
+        console.log(post)
+    }, [])
 
 
     return (
@@ -48,7 +50,7 @@ const DetailPost = ({ post, relatedPosts }) => {
 
             }
 
-            <Comment />
+            <Comment post={post} />
         </>
     )
 }

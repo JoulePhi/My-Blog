@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\PostController as PC;
+use App\Http\Controllers\CommentController as CC;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -33,6 +34,8 @@ Route::get('/home', [PC::class, 'index'])->name('home');
 Route::get('/tag/{tag}', [PC::class, 'tag'])->name('tag');
 Route::get('/category/{category}', [PC::class, 'category'])->name('category');
 Route::get('/post/{slug}', [PC::class, 'detail'])->name('detail');
+Route::post('/comment', [CC::class, 'publish'])->name('comment');
+Route::get('/comment', [CC::class, 'get'])->name('comment.get');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
