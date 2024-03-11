@@ -11,12 +11,9 @@ export default function PostCard({ post }) {
                 <img src={post.thumbnail} className=' object-cover  w-full h-1/2'
                     alt="" />
                 <div className='flex flex-col  justify-between  p-4 flex-grow '>
-                    <span className="font-semibold text-purple">Olivia Rhye • {new Date(post.published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
-                    <span className="font-semibold text-xl text-sidebarbg line-clamp-2">{post.title}</span>
-                    <p className="text-grey line-clamp-2">How do you create compelling presentations that
-                        wow your colleagues and
-                        impress your
-                        managers?</p>
+                    <span className="font-semibold text-purple">Dzulfikar Sadid • {new Date(post.published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                    <Link href={'/post/' + post.slug} className="font-semibold text-xl text-sidebarbg line-clamp-2 hover:underline">{post.title}</Link>
+                    <p className="text-grey line-clamp-2 text-sm">{post.content}</p>
                     <div className='w-full overflow-hidden'>
                         <div className='flex gap-4 overflow-y-auto scrollbar-hide'>
                             {

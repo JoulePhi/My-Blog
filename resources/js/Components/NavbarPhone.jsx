@@ -12,7 +12,7 @@ export default function NavbarPhone({ isOpen, toggle }) {
     }
 
     return (
-        <nav className={`${isOpen ? ' opacity-100 z-20' : 'opacity-0 -z-10'} absolute transition-opacity w-full h-dvh bg-white  top-0 bottom-0 duration-300`}>
+        <nav className={`${isOpen ? ' opacity-100 z-30' : 'opacity-0 -z-10'} absolute transition-opacity w-full h-dvh bg-white  top-0 bottom-0 duration-300`}>
             <div className="flex flex-col h-full">
                 <button className="text-3xl self-end m-4" onClick={toggle}><LuX /></button>
                 <div className="flex flex-col items-center justify-center h-full">

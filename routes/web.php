@@ -32,6 +32,7 @@ Route::get('/', function () {
 Route::get('/home', [PC::class, 'index'])->name('home');
 Route::get('/tag/{tag}', [PC::class, 'tag'])->name('tag');
 Route::get('/category/{category}', [PC::class, 'category'])->name('category');
+Route::get('/post/{slug}', [PC::class, 'detail'])->name('detail');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

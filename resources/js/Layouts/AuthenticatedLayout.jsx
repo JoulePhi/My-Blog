@@ -8,7 +8,7 @@ export default function Authenticated({ user, header, children }) {
         <>
             <Head title={header} />
             <Navbar />
-            <div className="xl:px-64 px-5 bg-gray-50 mx-auto">
+            <div className="xl:px-64 px-5 bg-gray-50 mx-auto mt-32">
 
                 <main>{children}</main>
             </div>
