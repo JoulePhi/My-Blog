@@ -7,6 +7,7 @@ use App\Http\Controllers\PostController as PC;
 use App\Http\Controllers\CommentController as CC;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\TechnologyController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -76,6 +77,16 @@ Route::middleware(['auth'])->group(function () {
             'edit' => 'admin.categories.edit',
             'update' => 'admin.categories.update',
             'destroy' => 'admin.categories.destroy',
+        ]);
+
+        Route::resource('technologies', TechnologyController::class)->names([
+            'index' => 'admin.technologies.index',
+            'create' => 'admin.technologies.create',
+            'store' => 'admin.technologies.store',
+            'show' => 'admin.technologies.show',
+            'edit' => 'admin.technologies.edit',
+            'update' => 'admin.technologies.update',
+            'destroy' => 'admin.technologies.destroy',
         ]);
 
         Route::put('admin/posts/{id}/publish', [PostController::class, 'publish'])->name('admin.post.publish');

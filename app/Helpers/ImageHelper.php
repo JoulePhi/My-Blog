@@ -13,7 +13,7 @@ class ImageHelper
     {
         $path = '';
         if ($request->hasFile('thumbnail')) {
-            $imageName = time().'.'.$request->thumbnail->extension();
+            $imageName = time() . '.' . $request->thumbnail->extension();
             $image = $request->thumbnail->storeAs('images', $imageName, 'public');
             $path = $image;
         } else if (is_string($request->thumbnail)) {
