@@ -42,10 +42,10 @@ export default function Navbar() {
                 {/* <h1 className='font-bold  tracking-widest'>Dzulfikar Sadid</h1> */}
                 <Link href={route('home')} className="fill-white"><Logo /></Link>
                 <div className="hidden  w-full md:flex justify-end">
-                    <div className='flex w-1/6 justify-between'>
+                    <div className='flex w-1/3 xl:w-1/4 justify-between'>
                         <Link className="hover:underline block" href={route('home')}> Home </Link>
                         <Link className="hover:underline block" href="#"> Project </Link>
-                        <Link className="hover:underline block" href="#"> About </Link>
+                        <Link className="hover:underline block" href={route('about')}> About </Link>
                         <button className="text-xl font-bold" onClick={() => setIsSearchOpen(true)}><LuSearch /></button>
                     </div>
                 </div>

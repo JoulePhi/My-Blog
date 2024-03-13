@@ -20,6 +20,7 @@ export default function Sidebar() {
                 <Menu title="Blog" route={route('admin.posts.index')} active={url.startsWith('/admin/posts')}><Blog /></Menu>
                 <Menu title="Tags" route={route('admin.tags.index')} active={url.startsWith('/admin/tags')}><Tag /></Menu>
                 <Menu title="Categories" route={route('admin.categories.index')} active={url.startsWith('/admin/categories')}><Category /></Menu>
+                <Menu title="Projects" route={route('admin.categories.index')} active={url.startsWith('/admin/categories')}><Category /></Menu>
             </nav>
         </>
     )

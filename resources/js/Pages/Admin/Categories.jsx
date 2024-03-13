@@ -52,7 +52,7 @@ const Categories = ({ categories }) => {
                     <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                         {category.slug}
                     </td>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs text-center  whitespace-nowrap p-4">
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs   whitespace-nowrap p-4">
                         {category.posts_count}
                     </td>
                     <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4 flex  ">

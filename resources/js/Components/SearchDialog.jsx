@@ -8,18 +8,25 @@ import { Link } from "@inertiajs/react";
 export default function SearchDialog({ isOpen, setIsOpen }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [results, setResults] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [isSearching, setIsSearching] = useState(false);
 
     useEffect(() => {
         const delayDebounceFn = setTimeout(async () => {
+            setIsSearching(true);
+            setLoading(true);
             try {
                 if (searchTerm.length > 0) {
                     const response = await axios.get(`/search/${searchTerm}`);
                     setResults(response.data);
+                } else {
+                    setResults([]);
+                    setIsSearching(false);
                 }
             } catch (error) {
                 console.error(error);
             }
-
+            setLoading(false);
         }, 1000)
 
         return () => clearTimeout(delayDebounceFn)
@@ -30,12 +37,12 @@ export default function SearchDialog({ isOpen, setIsOpen }) {
     };
     return (
         <>
-            <div className={` ${isOpen ? "opacity-100 z-50" : "opacity-0 -z-20"} fixed duration-100 transition-opacity  w-full h-full top-0 flex justify-center items-center bg-black/50  backdrop-blur-sm`}>
-                <div className="relative bg-white rounded-lg shadow  w-1/2">
-                    <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t ">
+            <div className={` ${isOpen ? "opacity-100 z-50" : "opacity-0 -z-20"} fixed duration-100 transition-opacity  w-full h-full top-0 hidden md:flex justify-center items-center bg-black/50  backdrop-blur-sm`}>
+                <div className="relative bg-white rounded-lg shadow  w-2/3  lg:w-1/2">
+                    <div className="flex items-center justify-between  md:px-4 md:py-2 border-b rounded-t ">
                         <div className="flex items-center w-full ">
-                            <span className=" text-sidebarbg text-2xl mr-5"><LuSearch /></span>
-                            <input type="text" placeholder="Search" className="w-full bg-transparent border-none font-poppins focus:outline-none focus:ring-0 text-lg p-2" value={searchTerm} onChange={handleChange} />
+                            <span className=" text-sidebarbg  text-lg lg:text-2xl mr-5"><LuSearch /></span>
+                            <input type="text" placeholder="Search" className="w-full bg-transparent border-none font-poppins focus:outline-none focus:ring-0 text-base lg:text-lg p-2" value={searchTerm} onChange={handleChange} />
                         </div>
                         <button type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center " data-modal-hide="static-modal" onClick={() => setIsOpen(false)}>
                             <LuX />
@@ -44,7 +51,7 @@ export default function SearchDialog({ isOpen, setIsOpen }) {
                     </div>
                     <div className="p-4 md:p-5 space-y-4">
                         {
-                            results.length > 0 ?
+                            loading ? 'Loading...' : results.length > 0 ?
                                 results.map((result, index) => (
                                     <div className="flex h-20 w-full" key={index}>
                                         <img src={result.thumbnail} alt="" className="w-1/4 object-cover mr-4" />
@@ -55,7 +62,7 @@ export default function SearchDialog({ isOpen, setIsOpen }) {
                                     </div>
                                 ))
                                 :
-                                <p>No results found</p>
+                                <p>{isSearching ? 'Not Found' : ''}</p>
                         }
 
 

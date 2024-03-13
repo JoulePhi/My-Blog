@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\PostController as PC;
@@ -37,6 +38,7 @@ Route::get('/post/{slug}', [PC::class, 'detail'])->name('detail');
 Route::post('/comment', [CC::class, 'publish'])->name('comment');
 Route::get('/comment', [CC::class, 'get'])->name('comment.get');
 Route::get('/search/{query}', [PC::class, 'search'])->name('search');
+Route::get('/about', [AboutController::class, 'index'])->name('about');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -127,8 +127,8 @@ export default function Comment({ post }) {
                                         </div>
 
                                     </footer>
-                                    <h2 className="text-sidebarbg font-bold text-base lg:text-xl mb-2">{comment.title}</h2>
-                                    <p className="text-grey sm:text-xs">{comment.content}</p>
+                                    <h2 className="text-sidebarbg font-bold text-base lg:text-lg mb-2">{comment.title}</h2>
+                                    <p className="text-grey text-xs md:text-lg">{comment.content}</p>
                                     <div className="flex items-center mt-4 space-x-4">
                                         <button type="button" onClick={() => toggleReplyForm(comment.id)}
                                             className="flex items-center lg:text-sm text-xs text-gray-500 hover:underline  font-medium">
@@ -180,8 +180,8 @@ export default function Comment({ post }) {
                                                 </div>
 
                                             </footer>
-                                            <h2 className="text-sidebarbg font-bold text-xl mb-2">{reply.title}</h2>
-                                            <p className="text-grey ">{reply.content}</p>
+                                            <h2 className="text-sidebarbg font-bold text-base lg:text-lg mb-2">{reply.title}</h2>
+                                            <p className="text-grey text-xs md:text-lg ">{reply.content}</p>
 
 
                                         </article>

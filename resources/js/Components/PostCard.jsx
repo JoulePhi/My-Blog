@@ -11,8 +11,8 @@ export default function PostCard({ post }) {
                 <Link className="w-full h-1/2" href={'/post/' + post.slug}><img src={post.thumbnail} className=' object-cover  w-full h-full'
                     alt="" /></Link>
                 <div className='flex flex-col  justify-between  p-4 flex-grow '>
-                    <span className="font-semibold text-purple">Dzulfikar Sadid • {new Date(post.published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
-                    <Link href={'/post/' + post.slug} className="font-semibold text-xl text-sidebarbg line-clamp-2 hover:underline">{post.title}</Link>
+                    <span className="font-semibold text-purple text-sm">Dzulfikar Sadid • {new Date(post.published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                    <Link href={'/post/' + post.slug} className="font-semibold text-xl lg:text-2xl text-sidebarbg line-clamp-2 hover:underline">{post.title}</Link>
                     <p className="text-grey line-clamp-2 text-sm">{post.content}</p>
                     <div className='w-full overflow-hidden'>
                         <div className='flex gap-4 overflow-y-auto scrollbar-hide'>
