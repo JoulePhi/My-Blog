@@ -1,5 +1,5 @@
 import Menu from "@/Components/Dashboard/Menu.jsx";
-import { LuSquareDashedBottomCode, LuAppWindow, LuHome, LuTags, LuAlignLeft } from "react-icons/lu";
+import { LuSquareDashedBottomCode, LuAppWindow, LuHome, LuTags, LuAlignLeft, LuBoxes } from "react-icons/lu";
 
 import { Link, usePage } from "@inertiajs/react";
 import { useEffect } from "react";
@@ -19,6 +19,7 @@ export default function Sidebar() {
                 <Menu title="Tags" route={route('admin.tags.index')} active={url.startsWith('/admin/tags')}><LuTags /></Menu>
                 <Menu title="Categories" route={route('admin.categories.index')} active={url.startsWith('/admin/categories')}><LuAlignLeft /></Menu>
                 <Menu title="Technologies" route={route('admin.technologies.index')} active={url.startsWith('/admin/technologies')}><LuSquareDashedBottomCode /></Menu>
+                <Menu title="Projects" route={route('admin.projects.index')} active={url.startsWith('/admin/projects')}><LuBoxes /></Menu>
             </nav>
         </>
     )

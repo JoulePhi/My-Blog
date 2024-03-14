@@ -3,6 +3,7 @@
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\PostController as PC;
 use App\Http\Controllers\CommentController as CC;
 use App\Http\Controllers\Admin\TagController;
@@ -87,6 +88,16 @@ Route::middleware(['auth'])->group(function () {
             'edit' => 'admin.technologies.edit',
             'update' => 'admin.technologies.update',
             'destroy' => 'admin.technologies.destroy',
+        ]);
+
+        Route::resource('projects', ProjectController::class)->names([
+            'index' => 'admin.projects.index',
+            'create' => 'admin.projects.create',
+            'store' => 'admin.projects.store',
+            'show' => 'admin.projects.show',
+            'edit' => 'admin.projects.edit',
+            'update' => 'admin.projects.update',
+            'destroy' => 'admin.projects.destroy',
         ]);
 
         Route::put('admin/posts/{id}/publish', [PostController::class, 'publish'])->name('admin.post.publish');

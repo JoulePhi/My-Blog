@@ -17,9 +17,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('thumbnail');
             $table->string('repository_url');
-            $table->string('live_url');
-            $table->ulid('technologies_id');
-            $table->foreign('technologies_id')->references('id')->on('technologies')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('live_url')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -30,6 +28,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+
         Schema::dropIfExists('projects');
     }
 };
