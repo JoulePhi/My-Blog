@@ -3,7 +3,8 @@ const SvgComponent = (props) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 -0.114 49.742 51.317"
-        {...props}
+        width="100%"
+        height="100%"
     >
         <path
             fill="#ff2d20"

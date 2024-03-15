@@ -3,8 +3,9 @@ const SvgComponent = (props) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="xMinYMin meet"
-        viewBox="0 0 256 134"
-        {...props}
+        viewBox="0 0 256 256"
+        width="100%"
+        height="100%"
     >
         <g fillRule="evenodd">
             <ellipse cx={128} cy={66.63} fill="#8993BE" rx={128} ry={66.63} />

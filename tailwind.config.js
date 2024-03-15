@@ -28,6 +28,9 @@ export default {
                 poppins: ["Poppins", ...defaultTheme.fontFamily.sans],
                 opensans: ["Open Sans", ...defaultTheme.fontFamily.sans],
             },
+            backgroundImage: {
+                me: "url('/public/storage/images/me-porto.png')",
+            },
             colors: {
                 sidebarbg: "#363740",
                 bg: "#f5f5f9",
@@ -39,25 +42,6 @@ export default {
                 magenta: "#C11574",
                 grey: "#667085",
                 green: "#3ac78b",
-            },
-            animation: {
-                float: "float 3s ease-in-out infinite",
-            },
-            keyframes: {
-                float: {
-                    "0%": {
-                        boxShadow: "0 5px 15px 0px rgba(0,0,0,0.2)",
-                        transform: "translatey(0px)",
-                    },
-                    "50%": {
-                        boxShadow: "0 10px 15px 0px rgba(0,0,0,0.1)",
-                        transform: "translatey(-5px)",
-                    },
-                    "100%": {
-                        boxShadow: "0 5px 15px 0px rgba(0,0,0,0.2)",
-                        transform: "translatey(0px)",
-                    },
-                },
             },
         },
     },

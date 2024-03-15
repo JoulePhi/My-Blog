@@ -1,6 +1,7 @@
 import * as React from "react"
 const SvgComponent = (props) => (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1999 2474.2" {...props}>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1999 2474.2" width="100%"
+        height="100%">
         <linearGradient
             id="a"
             x1={-2115.003}

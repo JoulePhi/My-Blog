@@ -2,15 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-
-@layer base{
-    h1, h2,h3, h4, h5, h6 {
+@layer base {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
         @apply font-opensans;
     }
 
-    p, span, label{
+    p,
+    span,
+    label {
         @apply font-poppins;
     }
 
+    .blob {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
 }
-

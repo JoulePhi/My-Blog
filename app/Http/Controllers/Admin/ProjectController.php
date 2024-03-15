@@ -30,7 +30,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::with('technologies')->paginate(5);
+        $projects = Project::with('technologies')->paginate(5)->onEachSide(3);
         return Inertia::render('Admin/Projects', [
             'projects' => $projects
         ]);

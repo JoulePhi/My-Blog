@@ -1,5 +1,5 @@
 import AdminLayout from "@/Layouts/AdminLayout.jsx";
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import Edit from "@/Assets/Icons/Edit";
 import Trash from "@/Assets/Icons/Trash";
 import Switch from '@/Components/Dashboard/Switch';
@@ -46,19 +46,19 @@ const Projects = ({ projects }) => {
                         {(projects.current_page - 1) * projects.per_page + index + 1}
                     </th>
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
-                        <img src={getImage(project.thumbnail)} alt={project.thumbnail} className="h-20 object-cover" />
+                        <img src={project.thumbnail} alt={project.thumbnail} className="h-20 object-cover" />
                     </td>
                     <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                         {project.name}
                     </td>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 w-full line-clamp-2 text-pretty">
                         {project.description}
                     </td>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        {project.repository_url}
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs ">
+                        <Link rel="stylesheet" href={project.repository_url} >{project.repository_url}</Link>
                     </td>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        {project.live_url}
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs ">
+                        <Link rel="stylesheet" href={project.live_url} >{project.live_url}</Link>
                     </td>
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
                         <div className="flex flex-wrap w-20 gap-2">
