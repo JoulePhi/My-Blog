@@ -1,12 +1,11 @@
 import Menu from "@/Components/Dashboard/Menu.jsx";
 import { LuSquareDashedBottomCode, LuAppWindow, LuHome, LuTags, LuAlignLeft, LuBoxes } from "react-icons/lu";
 
-import { Link, usePage } from "@inertiajs/react";
-import { useEffect } from "react";
+import { usePage } from "@inertiajs/react";
 
 export default function Sidebar() {
 
-    const { url, component } = usePage()
+    const { url } = usePage()
 
     return (
         <>

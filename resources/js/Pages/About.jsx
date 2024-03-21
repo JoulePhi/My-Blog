@@ -15,7 +15,6 @@ import { Head } from "@inertiajs/react";
 import StackCard from "@/Components/StackCard";
 
 
-
 const About = ({ projects }) => {
     const size = 50;
     return (
@@ -49,7 +48,6 @@ const About = ({ projects }) => {
                 <StackCard url="https://php.net"><Php /></StackCard>
 
             </div>
-
             <h1 className='font-bold mb-8 text-lg lg:text-2xl my-10 uppercase'>Projects</h1>
 
             <div className='flex flex-col items-center justify-center md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 h-[full]  mb-10'>
@@ -61,5 +59,5 @@ const About = ({ projects }) => {
     )
 }
 
-About.layout = page => <Authenticated children={page} />
+About.layout = page => <Authenticated children={page} header="About" />
 export default About;

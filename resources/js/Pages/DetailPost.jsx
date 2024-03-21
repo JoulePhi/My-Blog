@@ -1,13 +1,10 @@
 import Authenticated from "@/Layouts/AuthenticatedLayout"
-import { useEffect } from "react";
 import { Link } from "@inertiajs/react";
 import PostCard from "@/Components/PostCard";
-import Comment from "@/Components/Comment";
+import Safe from 'react-safe';
+
 const DetailPost = ({ post, relatedPosts }) => {
 
-    useEffect(() => {
-        console.log(post)
-    }, [])
 
 
     return (
@@ -50,7 +47,20 @@ const DetailPost = ({ post, relatedPosts }) => {
 
             }
 
-            <Comment post={post} />
+            <div id="disqus_thread" className="my-14"></div>
+            <Safe.script>
+                {
+                    (function () { // DON'T EDIT BELOW THIS LINE
+                        var d = document, s = d.createElement('script');
+                        s.src = 'https://codewithjoule.disqus.com/embed.js';
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                    })()
+
+
+                }
+
+            </Safe.script>
         </>
     )
 }
