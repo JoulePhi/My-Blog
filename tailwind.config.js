@@ -9,6 +9,7 @@ export default {
         "./resources/views/**/*.blade.php",
         "./resources/js/**/*.jsx",
     ],
+    darkMode: "selector",
 
     theme: {
         screens: {
@@ -42,6 +43,8 @@ export default {
                 magenta: "#C11574",
                 grey: "#667085",
                 green: "#3ac78b",
+                darkBg: "#0f182a",
+                darkContainer: "#1e293b",
             },
         },
     },

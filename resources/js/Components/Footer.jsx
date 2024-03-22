@@ -7,12 +7,12 @@ export default function Footer() {
 
 
 
-        <footer className="bg-gray-50 xl:px-64 px-5   mt-20">
+        <footer className="bg-gray-50 xl:px-64 px-5   mt-20 dark:bg-darkBg border-t border-transparent dark:border-darkContainer" >
             <div className="w-full  mx-auto  md:py-8">
                 <div className="sm:flex sm:items-center sm:justify-between">
                     <a href="https://itsmejoule.web.app/" className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
                         <span className="fill-purple mr-5"><Logo /></span>
-                        <span className="self-center text-sm md:text-2xl font-semibold whitespace-nowrap ">Dzulfikar Sadid</span>
+                        <span className="self-center text-sm md:text-2xl font-semibold whitespace-nowrap dark:text-textDark">Dzulfikar Sadid</span>
                     </a>
                     <ul className="flex flex-wrap items-center mb-6 text-xs md:ext-sm font-medium text-gray-500 sm:mb-0 ">
                         <li>

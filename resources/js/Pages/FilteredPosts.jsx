@@ -13,7 +13,7 @@ const FilteredPosts = ({ posts, title }) => {
 
     return (
         <>
-            <h1 className='font-bold mb-8 text-2xl'>{title}</h1>
+            <h1 className='font-bold mb-8 text-2xl dark:text-textDark'>{title}</h1>
 
             <div className="flex flex-col items-center gap-6 md:grid md:grid-cols-3 xl:grid-cols-4">
                 {
@@ -23,9 +23,9 @@ const FilteredPosts = ({ posts, title }) => {
                 }
             </div>
             <div className="flex justify-between mt-10">
-                <Link className="flex items-center text-grey" href={posts.prev_page_url}>
+                <Link className="flex items-center text-grey dark:text-textDark" href={posts.prev_page_url}>
                     <LuArrowLeft />
-                    <span className='text-grey text-sm ml-6'>Previous</span>
+                    <span className='text-grey text-sm ml-6 dark:text-textDark'>Previous</span>
                 </Link>
 
                 <div className='md:flex hidden'>
@@ -36,8 +36,8 @@ const FilteredPosts = ({ posts, title }) => {
                         ))
                     }
                 </div>
-                <Link className="flex items-center text-grey" href={posts.next_page_url}>
-                    <span className='text-grey text-sm mr-6'>Next</span>
+                <Link className="flex items-center text-grey dark:text-textDark" href={posts.next_page_url}>
+                    <span className='text-grey text-sm mr-6 dark:text-textDark'>Next</span>
                     <LuArrowRight />
                 </Link>
             </div>

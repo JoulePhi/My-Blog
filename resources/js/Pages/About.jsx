@@ -24,11 +24,11 @@ const About = ({ projects }) => {
             <div className="flex lg:h-[40rem] h-[50rem] flex-col-reverse lg:flex-row  w-full lg:py-10  overflow-hidden lg:justify-between">
                 <div className="flex flex-col lg:w-1/2 w-full justify-center gap-10">
                     <h1 className="font-bold font-poppins text-purple  text-base lg:text-xl">Fullstack Developer • Mobile Developer</h1>
-                    <span className="text-sidebarbg font-semibold text-2xl lg:text-3xl">Dzulfikar Sadid Khoir</span>
-                    <p>I specialize in backend development, where technology and innovation unite, while also having the capacity to create mobile apps using Flutter and craft IoT projects</p>
+                    <span className="text-sidebarbg font-semibold text-2xl lg:text-3xl dark:text-textDark">Dzulfikar Sadid Khoir</span>
+                    <p className="text-grey ">I specialize in backend development, where technology and innovation unite, while also having the capacity to create mobile apps using Flutter and craft IoT projects</p>
                     <div className="flex text-3xl text-sidebarbg gap-2">
-                        <a className="hover:text-[#0077b5]" href="https://linkedin.com/in/dzulfikar-sadid" target="_blank" ><FaLinkedin /></a>
-                        <a className="hover:text-[#171515]" href="https://github.com/joulephi" target="_blank"><FaGithub /></a>
+                        <a className="hover:text-[#0077b5] dark:text-[#0077b5] dark:hover:text-darkContainer" href="https://linkedin.com/in/dzulfikar-sadid" target="_blank" ><FaLinkedin /></a>
+                        <a className="hover:text-[#171515] dark:text-white dark:hover:text-darkContainer" href="https://github.com/joulephi" target="_blank"><FaGithub /></a>
                     </div>
                 </div>
 
@@ -38,7 +38,7 @@ const About = ({ projects }) => {
                 </div>
             </div>
 
-            <h1 className='font-bold mb-8  text-lg lg:text-2xl  my-10 uppercase'>Tech Stack  </h1>
+            <h1 className='font-bold mb-8  text-lg lg:text-2xl  my-10 uppercase dark:text-textDark'>Tech Stack  </h1>
             <div className='flex   my-10 gap-4 justify-center lg:justify-start items-center flex-wrap'>
                 <StackCard url="https://laravel.com"><Laravel /></StackCard>
                 <StackCard url="https://flutter.dev"><Flutter /></StackCard>
@@ -46,10 +46,10 @@ const About = ({ projects }) => {
                 <StackCard url="https://tailwindcss.com"><Tailwind /></StackCard>
                 <StackCard url="https://arduino.cc"><Arduino /></StackCard>
                 <StackCard url="https://dart.dev"><Dart /></StackCard>
-                <StackCard url="https://php.net"><Php /></StackCard>
+                {/* <StackCard url="https://php.net"><Php /></StackCard> */}
 
             </div>
-            <h1 className='font-bold mb-8 text-lg lg:text-2xl my-10 uppercase'>Projects</h1>
+            <h1 className='font-bold mb-8 text-lg lg:text-2xl my-10 uppercase dark:text-textDark'>Projects</h1>
 
             <div className='flex flex-col items-center justify-center md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 h-[full]  mb-10'>
                 {projects.data.map((project, i) => (

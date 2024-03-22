@@ -21,11 +21,11 @@ export default function Authenticated({ user, header, children }) {
         <>
             <Head title={header} />
             <Navbar />
-            <div className="xl:px-64 md:px-20 px-5 bg-gray-50 mx-auto mt-32">
+            <div className="xl:px-64 md:px-20 px-5 bg-gray-50 dark:bg-darkBg mx-auto mt-32">
 
                 <main>{children}</main>
             </div>
-            <button className={`fixed bottom-10 right-10 z-20 bg-white rounded-full shadow-2xl flex items-center justify-center w-16 h-16 font-bold  text-sidebarbg transition-opacity duration-100
+            <button className={`fixed bottom-10 right-10 z-20 bg-white dark:bg-purple dark:text-white rounded-full shadow-2xl flex items-center justify-center w-16 h-16 font-bold  text-sidebarbg transition-opacity duration-100
             ${isScrolled ? 'opacity-100' : 'opacity-0'} `} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                 <LuChevronUp size={30} />
             </button>

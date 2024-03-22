@@ -15,7 +15,7 @@ const Home = ({ recentPosts, allPosts }) => {
             {
                 recentPosts.length > 0 && (
                     <>
-                        <h1 className='font-bold mb-8 text-xl'>Recent Blog</h1>
+                        <h1 className='font-bold mb-8 text-xl dark:text-textDark'>Recent Blog</h1>
 
 
 
@@ -23,7 +23,7 @@ const Home = ({ recentPosts, allPosts }) => {
                             <div className=' flex flex-col  md:grid md:grid-cols-2  md:grid-rows-2 gap-6   md:h-[30rem]  w-full place-content-center aspect-video'>
 
 
-                                <div className="bg-white h-[28rem] md:h-full md:col-span-2 flex flex-col shadow-lg rounded-xl lg:row-start-1 lg:row-end-3 lg:col-end-2 relative overflow-hidden">
+                                <div className="bg-white dark:bg-darkContainer h-[28rem] md:h-full md:col-span-2 flex flex-col shadow-lg rounded-xl lg:row-start-1 lg:row-end-3 lg:col-end-2 relative overflow-hidden">
                                     <Link className="h-1/2 md:h-full" href={'/post/' + recentPosts[0].slug}><img src={recentPosts[0].thumbnail} className='object-cover md:rounded-lg w-full h-full ' alt="" /></Link>
                                     <div className="hidden lg:block col-start-1 row-start-2 absolute inset-0 opacity-0 hover:opacity-100 duration-300 bg-gradient-to-t from-black/70 rounded-lg">
                                         <div className="flex flex-col px-6 py-10 justify-end h-full">
@@ -48,11 +48,11 @@ const Home = ({ recentPosts, allPosts }) => {
                                 </div>
 
 
-                                <div className='flex flex-col lg:flex-row md:h-full h-[28rem]  bg-white shadow-xl rounded-xl overflow-hidden '>
+                                <div className='flex flex-col lg:flex-row md:h-full h-[28rem]  bg-white dark:bg-darkContainer shadow-xl rounded-xl overflow-hidden '>
                                     <Link className="h-1/2 md:h-full lg:w-1/2 bg-red-100" href={'/post/' + recentPosts[1].slug}><img src={recentPosts[1].thumbnail} className='object-cover   w-full h-full ' alt="" /></Link>
                                     <div className='lg:flex  flex flex-col justify-between lg:w-2/3 h-full p-4 md:hidden'>
                                         <span className="font-semibold text-purple text-sm  ">Dzulfikar Sadid • {new Date(recentPosts[1].published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
-                                        <Link href={'/post/' + recentPosts[1].slug}><span className="font-semibold xl:text-2xl text-xl text-sidebarbg text-ellipsis line-clamp-2 hover:underline">{recentPosts[1].title}</span></Link>
+                                        <Link href={'/post/' + recentPosts[1].slug}><span className="font-semibold xl:text-2xl text-xl text-sidebarbg text-ellipsis line-clamp-2 hover:underline dark:text-textDark">{recentPosts[1].title}</span></Link>
                                         <p className="text-grey line-clamp-2 text-sm lg:line-clamp-2">{recentPosts[1].content}</p>
                                         <div className='w-full overflow-hidden'>
                                             <div className='flex gap-4 overflow-y-auto scrollbar-hide'>
@@ -65,11 +65,11 @@ const Home = ({ recentPosts, allPosts }) => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className='flex flex-col lg:flex-row md:h-full h-[28rem]  bg-white shadow-xl rounded-xl overflow-hidden '>
+                                <div className='flex flex-col lg:flex-row md:h-full h-[28rem]  bg-white dark:bg-darkContainer shadow-xl rounded-xl overflow-hidden '>
                                     <Link className="h-1/2 md:h-full lg:w-1/2 bg-red-100" href={'/post/' + recentPosts[2].slug}><img src={recentPosts[2].thumbnail} className='object-cover  w-full h-full ' alt="" /></Link>
                                     <div className='lg:flex  flex flex-col justify-between lg:w-2/3 h-full p-4 md:hidden'>
                                         <span className="font-semibold text-purple text-sm  ">Dzulfikar Sadid • {new Date(recentPosts[2].published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
-                                        <Link href={'/post/' + recentPosts[2].slug}><span className="font-semibold xl:text-2xl text-xl text-sidebarbg text-ellipsis line-clamp-2 hover:underline">{recentPosts[2].title}</span></Link>
+                                        <Link href={'/post/' + recentPosts[2].slug}><span className="font-semibold xl:text-2xl text-xl text-sidebarbg text-ellipsis line-clamp-2 hover:underline dark:text-textDark">{recentPosts[2].title}</span></Link>
                                         <p className="text-grey line-clamp-2 text-sm lg:line-clamp-2">{recentPosts[2].content}</p>
                                         <div className='w-full overflow-hidden'>
                                             <div className='flex gap-4 overflow-y-auto scrollbar-hide'>
@@ -99,8 +99,8 @@ const Home = ({ recentPosts, allPosts }) => {
                 Object.entries(allPosts).map(([category, posts]) => (
                     <div key={category} >
                         <span className="w-full flex justify-between items-center">
-                            <h1 className='font-bold mb-8 text-xl my-10 uppercase'>{category}</h1>
-                            <Link className="hover:underline flex items-center text-lg justify-between " href={"/category/" + category}>See All  <LuChevronsRight />  </Link>
+                            <h1 className='font-bold mb-8 text-xl my-10 uppercase dark:text-textDark'>{category}</h1>
+                            <Link className="hover:underline flex items-center text-lg justify-between dark:text-textDark" href={"/category/" + category}>See All  <LuChevronsRight />  </Link>
                         </span>
                         <div className='flex flex-col items-center justify-center md:grid md:grid-cols-3 lg:grid-cols-4 gap-6 h-[full]  mb-10' >
                             {posts.map((post, i) => (
