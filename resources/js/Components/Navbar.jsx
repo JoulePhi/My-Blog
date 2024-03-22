@@ -43,8 +43,8 @@ export default function Navbar() {
                 <Link href={route('home')} className="fill-white"><Logo /></Link>
                 <div className="hidden  w-full md:flex justify-end">
                     <div className='flex w-1/3 gap-20 justify-end'>
-                        <Link className={`hover:underline block font-semibold font-opensans ${url.startsWith('/home') ? 'underline' : ''}`} href={route('home')}> Home </Link>
-                        <Link className={`hover:underline block font-semibold font-opensans ${url.startsWith('/about') ? 'underline' : ''}`} href={route('about')}> About </Link>
+                        <Link className={`hover:underline block font-base font-opensans ${url.startsWith('/home') ? 'font-bold' : ''}`} href={route('home')} preserveScroll> Home </Link>
+                        <Link className={`hover:underline block font-base font-opensans ${url.startsWith('/about') ? 'font-bold' : ''}`} href={route('about')} preserveScroll> About </Link>
                         <button className="text-xl font-bold" onClick={() => setIsSearchOpen(true)}><LuSearch /></button>
                     </div>
                 </div>

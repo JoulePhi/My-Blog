@@ -1,6 +1,5 @@
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import { getImage } from "@/Helpers/Helpers.jsx";
-import { LuArrowLeft, LuArrowRight } from "react-icons/lu";
+import { motion } from 'framer-motion';
 import { useEffect } from "react";
 import { Link } from "@inertiajs/react";
 import { LuChevronsRight } from "react-icons/lu";
@@ -95,14 +94,17 @@ const Home = ({ recentPosts, allPosts }) => {
 
             {
                 Object.entries(allPosts).map(([category, posts]) => (
-                    <div key={category}>
+                    <div key={category} >
                         <span className="w-full flex justify-between items-center">
                             <h1 className='font-bold mb-8 text-xl my-10 uppercase'>{category}</h1>
                             <Link className="hover:underline flex items-center text-lg justify-between " href={"/category/" + category}>See All  <LuChevronsRight />  </Link>
                         </span>
-                        <div className='flex flex-col items-center justify-center md:grid md:grid-cols-3 lg:grid-cols-4 gap-6 h-[full]  mb-10'>
+                        <div className='flex flex-col items-center justify-center md:grid md:grid-cols-3 lg:grid-cols-4 gap-6 h-[full]  mb-10' >
                             {posts.map((post, i) => (
-                                <PostCard post={post} key={i} />
+                                <motion.div initial={{ y: 100, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, delay: i * 0.05 }} key={i}>
+                                    <PostCard post={post} />
+                                </motion.div>
+
                             ))}
                         </div>
                     </div>
