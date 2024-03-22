@@ -13,10 +13,11 @@ import ProjectCard from "@/Components/ProjectCard";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
 import { Head } from "@inertiajs/react";
 import StackCard from "@/Components/StackCard";
-
+import { useState } from "react";
 
 const About = ({ projects }) => {
-    const size = 50;
+    const [selected, setSelected] = useState(null)
+
     return (
         <>
             <Head title="About" />
@@ -52,7 +53,7 @@ const About = ({ projects }) => {
 
             <div className='flex flex-col items-center justify-center md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 h-[full]  mb-10'>
                 {projects.data.map((project, i) => (
-                    <ProjectCard project={project} key={i} />
+                    <ProjectCard project={project} key={i} selected={selected} setSelected={setSelected} />
                 ))}
             </div>
         </>
