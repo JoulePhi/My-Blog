@@ -35,7 +35,7 @@ export default function ProjectCard({ project, selected, setSelected }) {
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0, transition: { duration: 0.15 } }}
                                 transition={{ duration: 0.2 }} >
-                                <motion.div className="relative bg-white dark:bg-darkContainer rounded-2xl shadow w-full h-[32rem] lg:h-auto mx-5 lg:mx-0  md:w-2/3  lg:w-1/3 overflow-hidden flex flex-col" layoutId={`container-${project.id}`}>
+                                <motion.div className="relative bg-white dark:bg-darkContainer rounded-2xl shadow w-full h-[32rem] lg:h-auto mx-5 lg:mx-0  md:w-2/3  xl:w-1/3 overflow-hidden flex flex-col" layoutId={`container-${project.id}`}>
                                     <div className="relative w-full ">
                                         <motion.img src={project.thumbnail} alt="" className="w-full aspect-video object-cover" layoutId={`img-${project.id}`} />
                                         <button className="top-4 bg-white rounded-full p-2 right-4 absolute dark:bg-darkContainer dark:text-white" onClick={() => setSelected(null)}><IoMdClose />

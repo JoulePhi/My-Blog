@@ -22,10 +22,12 @@ class PostFactory extends Factory
     public function definition(): array
     {
         $title = $this->faker->sentence;
+        $content = $this->faker->paragraph;
         return [
             'user_id' => User::factory()->create()->id,
             'title' => $title,
-            'content' => $this->faker->paragraph,
+            'content' => $content,
+            'short_content' => Str::limit($content, 100),
             'meta_title' => $this->faker->sentence,
             'thumbnail' => $this->faker->imageUrl(),
             'slug' => Str::slug($title),
@@ -37,8 +39,8 @@ class PostFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (Post $post) {
-            $tags = Tag::inRandomOrder()->take(3)->get();
-            $categories = Category::inRandomOrder()->take(2)->get();
+            $tags = Tag::inRandomOrder()->take(rand(2, 6))->get();
+            $categories = Category::inRandomOrder()->take(rand(2, 6))->get();
 
             $post->tags()->sync($tags->pluck('id'));
             $post->categories()->sync($categories->pluck('id'));

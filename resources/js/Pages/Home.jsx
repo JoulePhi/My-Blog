@@ -34,7 +34,7 @@ const Home = ({ recentPosts, allPosts }) => {
                                     <div className='flex flex-col justify-between p-4 flex-grow md:hidden'>
                                         <span className="font-semibold text-purple text-sm">Dzulfikar Sadid • {new Date(recentPosts[0].published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
                                         <Link href={'/post/' + recentPosts[0].slug}><span className="font-semibold xl:text-2xl text-xl text-sidebarbg dark:text-textDark text-ellipsis line-clamp-2 hover:underline ">{recentPosts[0].title}</span></Link>
-                                        <p className="text-grey line-clamp-2 text-base md:text-lg">{recentPosts[0].content}</p>
+                                        <p className="text-grey line-clamp-2 text-base md:text-lg">{recentPosts[0].short_content}</p>
                                         <div className='w-full overflow-hidden'>
                                             <div className='flex gap-4 overflow-y-auto scrollbar-hide'>
                                                 {
@@ -56,7 +56,7 @@ const Home = ({ recentPosts, allPosts }) => {
                                     <div className='lg:flex  flex flex-col justify-between lg:w-2/3 h-full p-4 md:hidden'>
                                         <span className="font-semibold text-purple text-sm  ">Dzulfikar Sadid • {new Date(recentPosts[1].published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
                                         <Link href={'/post/' + recentPosts[1].slug}><span className="font-semibold xl:text-2xl text-xl text-sidebarbg text-ellipsis line-clamp-2 hover:underline dark:text-textDark">{recentPosts[1].title}</span></Link>
-                                        <p className="text-grey line-clamp-2 text-sm lg:line-clamp-2">{recentPosts[1].content}</p>
+                                        <p className="text-grey line-clamp-2 text-sm lg:line-clamp-2">{recentPosts[1].short_content}</p>
                                         <div className='w-full overflow-hidden'>
                                             <div className='flex gap-4 overflow-y-auto scrollbar-hide'>
                                                 {
@@ -76,7 +76,7 @@ const Home = ({ recentPosts, allPosts }) => {
                                     <div className='lg:flex  flex flex-col justify-between lg:w-2/3 h-full p-4 md:hidden'>
                                         <span className="font-semibold text-purple text-sm  ">Dzulfikar Sadid • {new Date(recentPosts[2].published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
                                         <Link href={'/post/' + recentPosts[2].slug}><span className="font-semibold xl:text-2xl text-xl text-sidebarbg text-ellipsis line-clamp-2 hover:underline dark:text-textDark">{recentPosts[2].title}</span></Link>
-                                        <p className="text-grey line-clamp-2 text-sm lg:line-clamp-2">{recentPosts[2].content}</p>
+                                        <p className="text-grey line-clamp-2 text-sm lg:line-clamp-2">{recentPosts[2].short_content}</p>
                                         <div className='w-full overflow-hidden'>
                                             <div className='flex gap-4 overflow-y-auto scrollbar-hide'>
                                                 {
