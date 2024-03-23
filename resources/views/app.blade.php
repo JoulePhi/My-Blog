@@ -25,7 +25,7 @@
     @inertiaHead
 </head>
 
-<body class="font-sans antialiased bg-gray-50 dark:bg-darkBg scroll-smooth">
+<body class="font-sans antialiased bg-gray-50 dark:bg-darkBg scroll-smooth duration-200 transition-all">
     @inertia
 </body>
 

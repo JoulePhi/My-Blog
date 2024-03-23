@@ -33,14 +33,17 @@ const Home = ({ recentPosts, allPosts }) => {
                                     </div>
                                     <div className='flex flex-col justify-between p-4 flex-grow md:hidden'>
                                         <span className="font-semibold text-purple text-sm">Dzulfikar Sadid • {new Date(recentPosts[0].published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
-                                        <Link href={'/post/' + recentPosts[0].slug}><span className="font-semibold xl:text-2xl text-xl text-sidebarbg text-ellipsis line-clamp-2 hover:underline ">{recentPosts[0].title}</span></Link>
+                                        <Link href={'/post/' + recentPosts[0].slug}><span className="font-semibold xl:text-2xl text-xl text-sidebarbg dark:text-textDark text-ellipsis line-clamp-2 hover:underline ">{recentPosts[0].title}</span></Link>
                                         <p className="text-grey line-clamp-2 text-base md:text-lg">{recentPosts[0].content}</p>
                                         <div className='w-full overflow-hidden'>
                                             <div className='flex gap-4 overflow-y-auto scrollbar-hide'>
                                                 {
-                                                    recentPosts[0].tags.map((tag, i) => (
-                                                        <Link href={"/tag/" + tag.title} key={i} className={`text-purple bg-purple/5 font-medium px-4 py-1 rounded-full text-xs md:text-sm line-clamp-1 text-ellipsis text-nowrap hover:underline`}>{tag.title}</Link>
+                                                    recentPosts[0].tags.slice(0, 3).map((tag, i) => (
+                                                        <Link href={"/tag/" + tag.title} key={i} className={`text-purple bg-purple/5 dark:bg-darkBg/30 font-medium px-4 py-1 rounded-full text-xs md:text-sm line-clamp-1 text-ellipsis text-nowrap hover:underline`}>{tag.title}</Link>
                                                     ))
+                                                }
+                                                {
+                                                    recentPosts[0].tags.length > 3 && <span className="text-purple bg-purple/5 dark:bg-darkBg/30 font-medium px-4 py-1 rounded-full text-xs">+ {recentPosts[0].tags.length - 3} </span>
                                                 }
                                             </div>
                                         </div>
@@ -57,9 +60,12 @@ const Home = ({ recentPosts, allPosts }) => {
                                         <div className='w-full overflow-hidden'>
                                             <div className='flex gap-4 overflow-y-auto scrollbar-hide'>
                                                 {
-                                                    recentPosts[1].tags.map((tag, i) => (
-                                                        <Link href={"/tag/" + tag.title} key={i} className={`text-purple bg-purple/5 font-medium px-4 py-1 rounded-full text-xs line-clamp-1 text-ellipsis text-nowrap hover:underline`}>{tag.title}</Link>
+                                                    recentPosts[1].tags.slice(0, 3).map((tag, i) => (
+                                                        <Link href={"/tag/" + tag.title} key={i} className={`text-purple bg-purple/5 dark:bg-darkBg/30 font-medium px-4 py-1 rounded-full text-xs line-clamp-1 text-ellipsis text-nowrap hover:underline`}>{tag.title}</Link>
                                                     ))
+                                                }
+                                                {
+                                                    recentPosts[1].tags.length > 3 && <span className="text-purple bg-purple/5 dark:bg-darkBg/30 font-medium px-4 py-1 rounded-full text-xs">+ {recentPosts[1].tags.length - 3} </span>
                                                 }
                                             </div>
                                         </div>
@@ -74,9 +80,12 @@ const Home = ({ recentPosts, allPosts }) => {
                                         <div className='w-full overflow-hidden'>
                                             <div className='flex gap-4 overflow-y-auto scrollbar-hide'>
                                                 {
-                                                    recentPosts[2].tags.map((tag, i) => (
-                                                        <Link href={"/tag/" + tag.title} key={i} className={`text-purple bg-purple/5 font-medium px-4 py-1 rounded-full text-xs line-clamp-1 text-ellipsis text-nowrap hover:underline`}>{tag.title}</Link>
+                                                    recentPosts[2].tags.slice(0, 3).map((tag, i) => (
+                                                        <Link href={"/tag/" + tag.title} key={i} className={`text-purple bg-purple/5 dark:bg-darkBg/30 font-medium px-4 py-1 rounded-full text-xs line-clamp-1 text-ellipsis text-nowrap hover:underline`}>{tag.title}</Link>
                                                     ))
+                                                }
+                                                {
+                                                    recentPosts[2].tags.length > 3 && <span className="text-purple bg-purple/5 dark:bg-darkBg/30 font-medium px-4 py-1 rounded-full text-xs">+ {recentPosts[2].tags.length - 3} </span>
                                                 }
                                             </div>
                                         </div>

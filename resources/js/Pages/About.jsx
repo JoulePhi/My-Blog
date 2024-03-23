@@ -33,7 +33,7 @@ const About = ({ projects }) => {
                 </div>
 
                 <div className="lg:w-1/2 w-full h-1/2 lg:h-full overflow-hidden flex justify-center items-center   mb-10 lg:mb-0">
-                    <div className="rounded-[50%_40%_30%_40%_/_60%_30%_70%_40%]   lg:rounded-[60%_40%_30%_70%_/_60%_30%_70%_40%] shadow-inner  bg-purple bg-me bg-cover bg-no-repeat  lg:w-[70%] lg:h-[70%] w-full h-full md:w-[50%]  bg-[center_top_1rem]" ></div>
+                    <div className="rounded-[30%_70%_70%_30%_/_30%_30%_70%_70%]   shadow-inner  bg-purple bg-me bg-cover bg-no-repeat  lg:w-[70%] lg:h-[70%] w-full h-full md:w-[50%]  bg-[center_top_1rem]" ></div>
 
                 </div>
             </div>

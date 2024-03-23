@@ -18,13 +18,13 @@ const DetailPost = ({ post, relatedPosts }) => {
             <div className='flex gap-4 o w-full flex-wrap items-center mb-10'>
                 {
                     post.categories.map((tag, i) => (
-                        <Link href={"/tag/" + tag.title} key={i} className={`text-purple bg-purple/5 font-xs lg:font-medium px-4 py-1 rounded-full line-clamp-1 text-ellipsis text-nowrap hover:underline`}>{tag.title}</Link>
+                        <Link href={"/tag/" + tag.title} key={i} className={`text-purple bg-purple/5  dark:bg-darkBg/30 font-xs lg:font-medium px-4 py-1 rounded-full line-clamp-1 text-ellipsis text-nowrap hover:underline`}>{tag.title}</Link>
                     ))
                 }
                 <span className=" text-xl text-grey">/</span>
                 {
                     post.tags.map((tag, i) => (
-                        <Link href={"/tag/" + tag.title} key={i} className={`text-purple bg-purple/5  font-xs lg:font-medium px-4 py-1 rounded-full line-clamp-1 text-ellipsis text-nowrap hover:underline`}>{tag.title}</Link>
+                        <Link href={"/tag/" + tag.title} key={i} className={`text-purple bg-purple/5  dark:bg-darkBg/30 font-xs lg:font-medium px-4 py-1 rounded-full line-clamp-1 text-ellipsis text-nowrap hover:underline`}>{tag.title}</Link>
                     ))
                 }
             </div>

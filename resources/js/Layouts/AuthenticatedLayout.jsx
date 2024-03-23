@@ -21,7 +21,7 @@ export default function Authenticated({ user, header, children }) {
         <>
             <Head title={header} />
             <Navbar />
-            <div className="xl:px-64 md:px-20 px-5 bg-gray-50 dark:bg-darkBg mx-auto mt-32">
+            <div className="xl:px-64 md:px-20 px-5 bg-gray-50 dark:bg-darkBg mx-auto mt-32 duration-200 transition-all">
 
                 <main>{children}</main>
             </div>

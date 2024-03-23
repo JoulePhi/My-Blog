@@ -17,7 +17,7 @@ export default function ProjectCard({ project, selected, setSelected }) {
                             <motion.div className='flex gap-4 overflow-y-auto scrollbar-hide' layoutId={`tech-${project.id}`}>
                                 {
                                     project.technologies.slice(0, 3).map((technology, i) => (
-                                        <img src={technology.logo} className="w-10 h-10 rounded-full" />
+                                        <img src={technology.logo} className="w-10 h-10 rounded-full" key={i} />
                                     ))
                                 }
                                 {
@@ -31,28 +31,28 @@ export default function ProjectCard({ project, selected, setSelected }) {
                 <AnimatePresence>
                     {
                         selected == project.id && (
-                            <motion.div className={` opacity-0 z-50 fixed  w-full h-full top-0 left-0 hidden md:flex justify-center items-center bg-black/50  backdrop-blur-sm`} initial={{ opacity: 0 }}
+                            <motion.div className={` opacity-0 z-50 fixed  w-full h-full top-0 left-0 flex justify-center items-center bg-black/50  backdrop-blur-sm`} initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0, transition: { duration: 0.15 } }}
                                 transition={{ duration: 0.2 }} >
-                                <motion.div className="relative bg-white dark:bg-darkContainer rounded-2xl shadow  w-2/3  lg:w-1/3 overflow-hidden" layoutId={`container-${project.id}`}>
-                                    <div className="relative w-full">
+                                <motion.div className="relative bg-white dark:bg-darkContainer rounded-2xl shadow w-full h-[32rem] lg:h-auto mx-5 lg:mx-0  md:w-2/3  lg:w-1/3 overflow-hidden flex flex-col" layoutId={`container-${project.id}`}>
+                                    <div className="relative w-full ">
                                         <motion.img src={project.thumbnail} alt="" className="w-full aspect-video object-cover" layoutId={`img-${project.id}`} />
                                         <button className="top-4 bg-white rounded-full p-2 right-4 absolute dark:bg-darkContainer dark:text-white" onClick={() => setSelected(null)}><IoMdClose />
                                         </button>
-                                        <motion.h1 className="font-poppins font-bold absolute bottom-10 text-2xl  left-4 text-white" layoutId={`name-${project.id}`} >{project.name}</motion.h1>
+                                        <motion.h1 className="font-poppins font-bold absolute bottom-2 lg:bottom-10  text-base lg:text-2xl  left-4 text-white mr-1 lg:mr-0" layoutId={`name-${project.id}`} >{project.name}</motion.h1>
                                     </div>
-                                    <div className=" w-full font-medium p-2">
-                                        <motion.p layoutId={`desc-${project.id}`} className="dark:text-textDark">{project.description}</motion.p>
+                                    <div className=" w-full font-medium px-2 py-6 flex-grow flex flex-col justify-between">
+                                        <motion.p layoutId={`desc-${project.id}`} className="dark:text-textDark font-light ">{project.description}</motion.p>
+                                        <motion.div className='flex gap-4 overflow-y-auto scrollbar-hide px-4 flex-wrap' layoutId={`tech-${project.id}`}>
+                                            {
+                                                project.technologies.map((technology, i) => (
+                                                    <img src={technology.logo} className="w-10 h-10 rounded-full" key={i} />
+                                                ))
+                                            }
+                                        </motion.div>
+                                    </div>
 
-                                    </div>
-                                    <motion.div className='flex gap-4 overflow-y-auto scrollbar-hide px-4 mb-4 flex-wrap' layoutId={`tech-${project.id}`}>
-                                        {
-                                            project.technologies.map((technology, i) => (
-                                                <img src={technology.logo} className="w-10 h-10 rounded-full" />
-                                            ))
-                                        }
-                                    </motion.div>
                                 </motion.div>
                             </motion.div>
                         )
