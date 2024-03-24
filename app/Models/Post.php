@@ -17,6 +17,7 @@ class Post extends Model
         'user_id',
         'title',
         'content',
+        'short_content',
         'meta_title',
         'thumbnail',
         'slug',
@@ -33,11 +34,11 @@ class Post extends Model
 
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(Tag::class,'post_tags');
+        return $this->belongsToMany(Tag::class, 'post_tags');
     }
 
     public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class,'post_categories');
+        return $this->belongsToMany(Category::class, 'post_categories');
     }
 }

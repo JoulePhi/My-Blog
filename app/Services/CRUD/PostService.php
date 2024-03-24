@@ -13,13 +13,14 @@ class PostService
     /**
      * @throws Exception
      */
-    public function create ($data, $thumbnail)
+    public function create($data, $thumbnail)
     {
         DB::beginTransaction();
         try {
             $slug = Str::slug($data['title']);
             $data['slug'] = $slug;
             $data['thumbnail'] = $thumbnail;
+            $data['short_content'] = Str::limit($data['content'], 100);
             $post = Post::create($data);
             $post->tags()->sync($data['tags']);
             $post->categories()->sync($data['categories']);
@@ -34,7 +35,7 @@ class PostService
     /**
      * @throws Exception
      */
-    public function update ($id, $data, $image)
+    public function update($id, $data, $image)
     {
         DB::beginTransaction();
         try {
@@ -55,7 +56,7 @@ class PostService
     /**
      * @throws Exception
      */
-    public function delete ($id)
+    public function delete($id)
     {
         DB::beginTransaction();
         try {
@@ -68,12 +69,12 @@ class PostService
         }
     }
 
-    public function get ($id)
+    public function get($id)
     {
         return Post::findOrFail($id);
     }
 
-    public function getSelectedTags($post,$tags)
+    public function getSelectedTags($post, $tags)
     {
         $postTagIds = $post->tags->map(fn ($tag) => $tag->id)->toArray();
 
@@ -109,7 +110,7 @@ class PostService
             $post->save();
             DB::commit();
             return $post->is_published;
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             throw $e;
         }

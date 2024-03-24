@@ -51,9 +51,9 @@ class PostService
 
     public function getDetailPost($slug)
     {
-        $post =  Post::with(['tags', 'categories'])->where('slug', $slug)->firstOrFail();
+        $post =  Post::with(['tags', 'categories'])->select('id', 'title', 'slug', 'is_published', 'thumbnail', 'content', 'short_content', 'published_at')->where('slug', $slug)->firstOrFail();
         $relatedPosts = Post::with(['tags', 'categories'])
-            ->select('id', 'title', 'slug', 'is_published', 'thumbnail', 'content', 'published_at')
+            ->select('id', 'title', 'slug', 'is_published', 'thumbnail', 'short_content', 'published_at')
             ->where('is_published', 1)
             ->whereHas('tags', function ($query) use ($post) {
                 $query->whereIn('title', $post->tags->pluck('title'));

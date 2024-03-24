@@ -25,7 +25,8 @@ const About = ({ projects }) => {
                 <div className="flex flex-col lg:w-1/2 w-full justify-center gap-10">
                     <h1 className="font-bold font-poppins text-purple  text-base lg:text-xl">Fullstack Developer • Mobile Developer</h1>
                     <span className="text-sidebarbg font-semibold text-2xl lg:text-3xl dark:text-textDark">Dzulfikar Sadid Khoir</span>
-                    <p className="text-grey ">I specialize in backend development, where technology and innovation unite, while also having the capacity to create mobile apps using Flutter and craft IoT projects</p>
+                    <p className="text-grey ">
+                        I'm a passionate full-stack engineer with expertise in web development, mobile app development, and IoT technologies. I enjoy crafting innovative solutions and creating seamless experiences across platforms. With a strong foundation in programming languages like PHP, Dart, and Python, I specialize in building user-friendly interfaces and scalable architectures. Let's collaborate and bring ideas to life through technology!</p>
                     <div className="flex text-3xl text-sidebarbg gap-2">
                         <a className="hover:text-[#0077b5] dark:text-[#0077b5] dark:hover:text-darkContainer" href="https://linkedin.com/in/dzulfikar-sadid" target="_blank" ><FaLinkedin /></a>
                         <a className="hover:text-[#171515] dark:text-white dark:hover:text-darkContainer" href="https://github.com/joulephi" target="_blank"><FaGithub /></a>

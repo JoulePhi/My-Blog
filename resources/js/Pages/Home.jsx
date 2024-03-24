@@ -13,7 +13,7 @@ const Home = ({ recentPosts, allPosts }) => {
     return (
         <div>
             {
-                recentPosts.length > 0 && (
+                recentPosts.length >= 2 && (
                     <>
                         <h1 className='font-bold mb-8 text-xl dark:text-textDark'>Recent Blog</h1>
 
