@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: set script permission
-        run: cd /var/www/codewithjoule.tech &&  sudo chmod +x ./.scripts/deploy.sh
+        run: ll
       - name: Deploy to server
         uses: appleboy/ssh-action@master
         with:
