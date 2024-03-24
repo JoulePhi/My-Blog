@@ -1,0 +1,107 @@
+/* Make clicks pass-through */
+#nprogress {
+    pointer-events: none;
+}
+
+#nprogress .bar {
+    background: red;
+    display: hidden;
+    position: fixed;
+    z-index: 1031;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 2px;
+}
+
+/* Fancy blur effect */
+#nprogress .peg {
+    display: block;
+    position: absolute;
+    right: 0px;
+    width: 100px;
+    height: 100%;
+    box-shadow: 0 0 10px #29d, 0 0 5px #29d;
+    opacity: 1;
+
+    -webkit-transform: rotate(3deg) translate(0px, -4px);
+    -ms-transform: rotate(3deg) translate(0px, -4px);
+    transform: rotate(3deg) translate(0px, -4px);
+}
+
+/* Remove these to get rid of the spinner */
+#nprogress .spinner {
+    display: flex;
+    position: fixed;
+    z-index: 1031;
+    top: 0;
+    left: 0;
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+#nprogress .spinner-icon {
+    width: 50px;
+    aspect-ratio: 1.154;
+    position: relative;
+    background: conic-gradient(
+        from 120deg at 50% 64%,
+        #0000,
+        #6941c6 1deg 120deg,
+        #0000 121deg
+    );
+    animation: l27-0 1.5s infinite cubic-bezier(0.3, 1, 0, 1);
+}
+
+#nprogress .spinner-icon:before,
+#nprogress .spinner-icon:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    transform-origin: 50% 66%;
+    animation: l27-1 1.5s infinite;
+}
+#nprogress .spinner-icon:after {
+    --s: -1;
+}
+
+.nprogress-custom-parent {
+    overflow: hidden;
+    position: relative;
+}
+
+.nprogress-custom-parent #nprogress .spinner,
+.nprogress-custom-parent #nprogress .bar {
+    position: absolute;
+}
+@keyframes l27-0 {
+    0%,
+    30% {
+        transform: rotate(0);
+    }
+    70% {
+        transform: rotate(120deg);
+    }
+    70.01%,
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@keyframes l27-1 {
+    0% {
+        transform: rotate(calc(var(--s, 1) * 120deg)) translate(0);
+    }
+    30%,
+    70% {
+        transform: rotate(calc(var(--s, 1) * 120deg))
+            translate(calc(var(--s, 1) * -5px), 10px);
+    }
+    100% {
+        transform: rotate(calc(var(--s, 1) * 120deg)) translate(0);
+    }
+}
