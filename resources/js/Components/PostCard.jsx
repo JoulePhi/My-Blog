@@ -1,3 +1,4 @@
+import { getImage } from "@/Helpers/Helpers";
 import { Link } from "@inertiajs/react";
 
 export default function PostCard({ post }) {
@@ -5,7 +6,7 @@ export default function PostCard({ post }) {
     return (
         <>
             <div className=' flex flex-col bg-white dark:bg-darkContainer  shadow-lg rounded-xl h-[28rem]  overflow-hidden duration-200 transition-all' >
-                <Link className="w-full h-1/2" href={'/post/' + post.slug}><img src={post.thumbnail} className=' object-cover  w-full h-full'
+                <Link className="w-full h-1/2" href={'/post/' + post.slug}><img src={getImage(post.thumbnail)} className=' object-cover  w-full h-full'
                     alt="" /></Link>
                 <div className='flex flex-col  justify-between  p-4 flex-grow '>
                     <span className="font-semibold text-purple text-sm">Dzulfikar Sadid • {new Date(post.published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>

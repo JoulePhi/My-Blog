@@ -3,6 +3,7 @@ import { Head, Link } from "@inertiajs/react";
 import PostCard from "@/Components/PostCard";
 import Safe from 'react-safe';
 import { WhatsappShareButton, TwitterIcon, TwitterShareButton, WhatsappIcon, FacebookIcon, FacebookShareButton } from "react-share";
+import { getImage } from "@/Helpers/Helpers";
 
 const DetailPost = ({ post, relatedPosts }) => {
 
@@ -17,16 +18,16 @@ const DetailPost = ({ post, relatedPosts }) => {
             </Head>
             <h2 className="font-semibold text-purple  lg:text-xl mb-5">{new Date(post.published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</h2>
             <h1 className="font-semibold text-sidebarbg text-3xl lg:text-6xl text-wrap mb-10 dark:text-textDark">{post.title}</h1>
-            <img src={post.thumbnail} className="w-full aspect-video rounded-xl" alt="" />
+            <img src={getImage(post.thumbnail)} className="w-full aspect-video rounded-xl" alt="" />
             <div className="flex my-5 w-full justify-end gap-4">
                 <TwitterShareButton url={window.location.href} hashtags={post.tags.map((e) => e.title)} title={post.title} ><TwitterIcon size={32} round={true} /></TwitterShareButton>
                 <WhatsappShareButton url={window.location.href} title={post.title}><WhatsappIcon size={32} round={true} /></WhatsappShareButton>
                 <FacebookShareButton url={window.location.href}><FacebookIcon size={32} round={true} /></FacebookShareButton>
             </div>
 
-            <div className="text-grey text-lg my-10 dark:text-textDark">
+            <Safe.div className="text-grey text-lg my-10 dark:text-textDark">
                 {post.content}
-            </div>
+            </Safe.div>
             <div className='flex gap-4 o w-full flex-wrap items-center mb-10'>
                 {
                     post.categories.map((tag, i) => (

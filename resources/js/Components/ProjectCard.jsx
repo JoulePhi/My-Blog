@@ -1,3 +1,4 @@
+import { getImage } from "@/Helpers/Helpers";
 import { AnimatePresence, motion, LayoutGroup, AnimateSharedLayout } from "framer-motion";
 import { IoMdClose } from "react-icons/io";
 
@@ -7,7 +8,7 @@ export default function ProjectCard({ project, selected, setSelected }) {
         <>
             <LayoutGroup >
                 <motion.div className=' flex flex-col bg-white dark:bg-darkContainer shadow-lg rounded-xl h-[28rem]  overflow-hidden' onClick={(e) => setSelected(project.id)} layoutId={`container-${project.id}`}>
-                    <motion.img src={project.thumbnail} className=' object-cover w-full h-1/2 '
+                    <motion.img src={getImage(project.thumbnail)} className=' object-cover w-full h-1/2 '
                         alt="" layoutId={`img-${project.id}`} />
                     <div className='flex flex-col  justify-between  p-4 flex-grow '>
 
