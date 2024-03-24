@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: set script permission
-        run: ll
+        run: ls
       - name: Deploy to server
         uses: appleboy/ssh-action@master
         with:
