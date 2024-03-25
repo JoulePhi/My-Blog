@@ -38,9 +38,8 @@ Route::get('/search/{query}', [PC::class, 'search'])->name('search');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::post('/upload/content', [PostController::class, 'uploadContentImage'])->name('upload.content');
 
     Route::prefix('admin')->group(function () {
         Route::get('/dashboard', function () {

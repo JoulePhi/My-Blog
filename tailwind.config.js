@@ -9,6 +9,9 @@ export default {
         "./resources/views/**/*.blade.php",
         "./resources/js/**/*.jsx",
     ],
+    options: {
+        safelist: ["blockquote", "pre"],
+    },
     darkMode: "selector",
 
     theme: {

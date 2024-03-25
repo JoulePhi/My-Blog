@@ -2,12 +2,25 @@ import Authenticated from "@/Layouts/AuthenticatedLayout"
 import { Head, Link } from "@inertiajs/react";
 import PostCard from "@/Components/PostCard";
 import Safe from 'react-safe';
+import { dracula, CopyBlock } from 'react-code-blocks';
+import parse from 'html-react-parser';
 import { WhatsappShareButton, TwitterIcon, TwitterShareButton, WhatsappIcon, FacebookIcon, FacebookShareButton } from "react-share";
 import { getImage } from "@/Helpers/Helpers";
 
 const DetailPost = ({ post, relatedPosts }) => {
 
-
+    const transform = (node) => {
+        if (node.type === 'tag' && node.name === 'pre') {
+            console.log(node.children[0].data.split('\\'))
+            return <CopyBlock
+                text={node.children[0].data.split('\\')[2].trim()}
+                language={node.children[0].data.split('\\')[0]}
+                showLineNumbers={true}
+                theme={dracula}
+                codeBlock
+            />;
+        }
+    };
 
     return (
         <>
@@ -25,9 +38,9 @@ const DetailPost = ({ post, relatedPosts }) => {
                 <FacebookShareButton url={window.location.href}><FacebookIcon size={32} round={true} /></FacebookShareButton>
             </div>
 
-            <Safe.div className="text-grey text-lg my-10 dark:text-textDark">
-                {post.content}
-            </Safe.div>
+            <div className="text-grey text-lg my-10 dark:text-textDark">
+                {parse(post.content, { replace: transform })}
+            </div>
             <div className='flex gap-4 o w-full flex-wrap items-center mb-10'>
                 {
                     post.categories.map((tag, i) => (

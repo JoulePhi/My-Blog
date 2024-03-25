@@ -46,7 +46,7 @@ const Blogs = ({ blogs }) => {
                         {(blogs.current_page - 1) * blogs.per_page + index + 1}
                     </th>
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
-                        <img src={blog.thumbnail} alt={blog.thumbnail} className="h-20 object-cover" />
+                        <img src={getImage(blog.thumbnail)} alt={blog.thumbnail} className="h-20 object-cover" />
                     </td>
                     <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                         {blog.title}

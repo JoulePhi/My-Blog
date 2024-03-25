@@ -1,6 +1,6 @@
 import { getImage } from "@/Helpers/Helpers";
 import { Link } from "@inertiajs/react";
-
+import Safe from 'react-safe';
 export default function PostCard({ post }) {
 
     return (
@@ -11,7 +11,7 @@ export default function PostCard({ post }) {
                 <div className='flex flex-col  justify-between  p-4 flex-grow '>
                     <span className="font-semibold text-purple text-sm">Dzulfikar Sadid • {new Date(post.published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
                     <Link href={'/post/' + post.slug} className="font-semibold text-xl lg:text-2xl text-sidebarbg line-clamp-2 hover:underline dark:text-textDark">{post.title}</Link>
-                    <p className="text-grey line-clamp-2 text-sm">{post.short_content}</p>
+                    <Safe.p className="text-grey line-clamp-2 text-sm">{post.short_content}</Safe.p>
                     <div className='w-full '>
                         <div className='flex gap-4 overflow-y-auto scrollbar-hide'>
                             {

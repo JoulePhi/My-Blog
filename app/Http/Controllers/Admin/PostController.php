@@ -130,4 +130,10 @@ class PostController extends Controller
             return response()->json(['message' => $e->getMessage()], 500);
         }
     }
+
+    public function uploadContentImage(Request $request)
+    {
+        $image = ImageHelper::uploadImageContent($request);
+        return response()->json(['location' => $image]);
+    }
 }

@@ -23,4 +23,19 @@ class ImageHelper
         }
         return $path;
     }
+
+    public static function uploadImageContent(Request $request)
+    {
+        $path = '';
+        if ($request->hasFile('image')) {
+            $imageName = time() . '.' . $request->image->extension();
+            $image = $request->image->storeAs('images', $imageName, 'public');
+            $path = $image;
+        } else if (is_string($request->image)) {
+            $path = $request->image;
+        } else {
+            $path = 'images/default.png';
+        }
+        return $path;
+    }
 }
