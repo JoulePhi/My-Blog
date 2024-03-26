@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { LuSearch, LuX } from "react-icons/lu";
 import debounce from 'lodash.debounce';
 import axios from "axios";
-import { getImage } from "@/Helpers/Helpers";
+import getImage from "@/Helpers/Helpers";
 import { Link } from "@inertiajs/react";
 
 export default function SearchDialog({ isOpen, setIsOpen }) {
@@ -54,7 +54,7 @@ export default function SearchDialog({ isOpen, setIsOpen }) {
                             loading ? <p className="text-textDark">Loading...</p> : results.length > 0 ?
                                 results.map((result, index) => (
                                     <div className="flex h-20 w-full" key={index}>
-                                        <img src={result.thumbnail} alt="" className="w-1/4 object-cover mr-4" />
+                                        <img src={getImage(result.thumbnail)} alt="" className="w-1/4 object-cover mr-4" />
                                         <div className="flex flex-col w-3/4 text-ellipsis line-clamp-2">
                                             <Link href={'/post/' + result.slug} className="hover:underline text-sm md:text-base font-poppins h-full w-full dark:text-textDark" onClick={() => setIsOpen(false)}>{result.title}</Link>
 

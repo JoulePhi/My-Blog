@@ -5,7 +5,7 @@ import Safe from 'react-safe';
 import { dracula, CopyBlock } from 'react-code-blocks';
 import parse from 'html-react-parser';
 import { WhatsappShareButton, TwitterIcon, TwitterShareButton, WhatsappIcon, FacebookIcon, FacebookShareButton } from "react-share";
-import { getImage } from "@/Helpers/Helpers";
+import getImage from "@/Helpers/Helpers";
 
 const DetailPost = ({ post, relatedPosts }) => {
 
@@ -17,7 +17,6 @@ const DetailPost = ({ post, relatedPosts }) => {
                 language={node.children[0].data.split('\\')[0]}
                 showLineNumbers={true}
                 theme={dracula}
-                codeBlock
             />;
         }
     };
@@ -33,9 +32,9 @@ const DetailPost = ({ post, relatedPosts }) => {
             <h1 className="font-semibold text-sidebarbg text-3xl lg:text-6xl text-wrap mb-10 dark:text-textDark">{post.title}</h1>
             <img src={getImage(post.thumbnail)} className="w-full aspect-video rounded-xl" alt="" />
             <div className="flex my-5 w-full justify-end gap-4">
-                <TwitterShareButton url={window.location.href} hashtags={post.tags.map((e) => e.title)} title={post.title} ><TwitterIcon size={32} round={true} /></TwitterShareButton>
-                <WhatsappShareButton url={window.location.href} title={post.title}><WhatsappIcon size={32} round={true} /></WhatsappShareButton>
-                <FacebookShareButton url={window.location.href}><FacebookIcon size={32} round={true} /></FacebookShareButton>
+                <TwitterShareButton url={'/post/' + post.slug} hashtags={post.tags.map((e) => e.title)} title={post.title} ><TwitterIcon size={32} round={true} /></TwitterShareButton>
+                <WhatsappShareButton url={'/post/' + post.slug} title={post.title}><WhatsappIcon size={32} round={true} /></WhatsappShareButton>
+                <FacebookShareButton url={'/post/' + post.slug}><FacebookIcon size={32} round={true} /></FacebookShareButton>
             </div>
 
             <div className="text-grey text-lg my-10 dark:text-textDark">
@@ -76,11 +75,13 @@ const DetailPost = ({ post, relatedPosts }) => {
             <div id="disqus_thread" className="my-14"></div>
             <Safe.script>
                 {
-                    (function () { // DON'T EDIT BELOW THIS LINE
-                        var d = document, s = d.createElement('script');
-                        s.src = 'https://codewithjoule.disqus.com/embed.js';
-                        s.setAttribute('data-timestamp', +new Date());
-                        (d.head || d.body).appendChild(s);
+                    (function () {
+                        if (typeof document !== 'undefined') {
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://codewithjoule.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        }
                     })()
 
 

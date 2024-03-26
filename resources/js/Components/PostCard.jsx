@@ -1,4 +1,4 @@
-import { getImage } from "@/Helpers/Helpers";
+import  getImage  from "@/Helpers/Helpers";
 import { Link } from "@inertiajs/react";
 import Safe from 'react-safe';
 export default function PostCard({ post }) {

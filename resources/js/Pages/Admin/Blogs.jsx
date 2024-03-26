@@ -6,7 +6,7 @@ import Switch from '@/Components/Dashboard/Switch';
 import toast, { Toaster } from "react-hot-toast";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import { getImage } from "@/Helpers/Helpers";
+import getImage from "@/Helpers/Helpers";
 import Paginate from "@/Components/Dashboard/Paginate";
 
 const Blogs = ({ blogs }) => {

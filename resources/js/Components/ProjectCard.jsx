@@ -1,4 +1,4 @@
-import { getImage } from "@/Helpers/Helpers";
+import getImage from "@/Helpers/Helpers";
 import { AnimatePresence, motion, LayoutGroup, AnimateSharedLayout } from "framer-motion";
 import { IoMdClose } from "react-icons/io";
 

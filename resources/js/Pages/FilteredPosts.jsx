@@ -1,4 +1,4 @@
-import { getImage } from "@/Helpers/Helpers";
+import getImage from "@/Helpers/Helpers";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { LuArrowLeft, LuArrowRight } from "react-icons/lu";
 import { useEffect } from "react";

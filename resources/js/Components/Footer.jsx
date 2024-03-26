@@ -7,7 +7,7 @@ export default function Footer() {
 
 
 
-        <footer className="bg-gray-50 xl:px-64 px-5   mt-20 dark:bg-darkBg border-t border-transparent dark:border-darkContainer" >
+        <footer className="bg-gray-50 xl:px-64 px-5 transition-all duration-200   mt-20 dark:bg-darkBg border-t border-transparent dark:border-darkContainer" >
             <div className="w-full  mx-auto  md:py-8">
                 <div className="sm:flex sm:items-center sm:justify-between">
                     <a href="https://itsmejoule.web.app/" className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">

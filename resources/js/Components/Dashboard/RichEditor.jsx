@@ -5,7 +5,7 @@ import Quill from "quill"; // import styles
 
 
 import toast, { Toaster } from 'react-hot-toast';
-import { getImage } from '@/Helpers/Helpers';
+import getImage from '@/Helpers/Helpers';
 
 
 const Font = Quill.import('attributors/style/font');

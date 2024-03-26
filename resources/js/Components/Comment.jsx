@@ -2,7 +2,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import toast, { Toaster } from 'react-hot-toast';
-import { getImage } from "@/Helpers/Helpers";
+import getImage from "@/Helpers/Helpers";
 
 export default function Comment({ post }) {
     const [email, setEmail] = useState('');

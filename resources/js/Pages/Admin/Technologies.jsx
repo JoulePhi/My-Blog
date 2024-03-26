@@ -7,7 +7,7 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import Paginate from "@/Components/Dashboard/Paginate";
 import { useEffect } from "react";
-import { getImage } from "@/Helpers/Helpers";
+import getImage from "@/Helpers/Helpers";
 const Technologies = ({ technologies }) => {
 
     const deleteTag = async (technology) => {

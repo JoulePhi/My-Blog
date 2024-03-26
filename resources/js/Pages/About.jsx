@@ -1,4 +1,4 @@
-import { getImage } from "@/Helpers/Helpers";
+import getImage from "@/Helpers/Helpers";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 // import { ReactComponent as Logo } from "@/Assets/Icons/laravel.svg";
 import Arduino from "@/Assets/Icons/Arduino";
