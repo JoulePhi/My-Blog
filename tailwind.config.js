@@ -32,9 +32,6 @@ export default {
                 poppins: ["Poppins", ...defaultTheme.fontFamily.sans],
                 opensans: ["Open Sans", ...defaultTheme.fontFamily.sans],
             },
-            backgroundImage: {
-                me: "url('/public/storage/images/me-porto.png')",
-            },
             colors: {
                 sidebarbg: "#363740",
                 bg: "#f5f5f9",

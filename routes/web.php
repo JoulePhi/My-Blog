@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\Admin\AboutController as AdminAboutController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProjectController;
@@ -36,6 +37,7 @@ Route::post('/comment', [CC::class, 'publish'])->name('comment');
 Route::get('/comment', [CC::class, 'get'])->name('comment.get');
 Route::get('/search/{query}', [PC::class, 'search'])->name('search');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
+Route::get('/cv/download', [AboutController::class, 'downloadCv'])->name('cv');
 
 Route::middleware(['auth'])->group(function () {
 
@@ -92,6 +94,17 @@ Route::middleware(['auth'])->group(function () {
             'edit' => 'admin.projects.edit',
             'update' => 'admin.projects.update',
             'destroy' => 'admin.projects.destroy',
+        ]);
+
+
+        Route::resource('about', AdminAboutController::class)->names([
+            'index' => 'admin.about.index',
+            'create' => 'admin.about.create',
+            'store' => 'admin.about.store',
+            'show' => 'admin.about.show',
+            'edit' => 'admin.about.edit',
+            'update' => 'admin.about.update',
+            'destroy' => 'admin.about.destroy',
         ]);
 
         Route::put('admin/posts/{id}/publish', [PostController::class, 'publish'])->name('admin.post.publish');

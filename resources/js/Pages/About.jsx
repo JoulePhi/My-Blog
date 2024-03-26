@@ -11,22 +11,30 @@ import Python from "@/Assets/Icons/Python";
 import Dart from "@/Assets/Icons/Dart";
 import ProjectCard from "@/Components/ProjectCard";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import StackCard from "@/Components/StackCard";
 import { useState } from "react";
+import axios from "axios";
 
-const About = ({ projects }) => {
+const About = ({ projects, about }) => {
     const [selected, setSelected] = useState(null)
-
+    const downloadCv = async () => {
+        await axios.get(route('cv'));
+    }
     return (
         <>
             <Head title="About" />
             <div className="flex lg:h-[40rem] h-[50rem] flex-col-reverse lg:flex-row  w-full lg:py-10  overflow-hidden lg:justify-between">
                 <div className="flex flex-col lg:w-1/2 w-full justify-center gap-10">
-                    <h1 className="font-bold font-poppins text-purple  text-base lg:text-xl">Fullstack Developer • Mobile Developer</h1>
-                    <span className="text-sidebarbg font-semibold text-2xl lg:text-3xl dark:text-textDark">Dzulfikar Sadid Khoir</span>
-                    <p className="text-grey ">
-                        I'm a passionate full-stack engineer with expertise in web development, mobile app development, and IoT technologies. I enjoy crafting innovative solutions and creating seamless experiences across platforms. With a strong foundation in programming languages like PHP, Dart, and Python, I specialize in building user-friendly interfaces and scalable architectures. Let's collaborate and bring ideas to life through technology!</p>
+                    <h1 className="font-bold font-poppins text-purple  text-base lg:text-xl">{about.title}</h1>
+                    <span className="text-sidebarbg font-semibold text-2xl lg:text-3xl dark:text-textDark">{about.name}</span>
+                    <p className="text-grey ">{about.description}</p>
+                    <a
+                        href={route('cv')}
+                        download
+                        className="bg-purple text-white  text-xs border text-center border-transparent font-bold uppercase px-6 py-4 rounded-lg outline-none focus:outline-none  ease-linear transition-all duration-150 hover:bg-transparent hover:text-purple hover:border-purple w-1/3"
+                        type="button">Download CV
+                    </a>
                     <div className="flex text-3xl text-sidebarbg gap-2">
                         <a className="hover:text-[#0077b5] dark:text-[#0077b5] dark:hover:text-darkContainer" href="https://linkedin.com/in/dzulfikar-sadid" target="_blank" ><FaLinkedin /></a>
                         <a className="hover:text-[#171515] dark:text-white dark:hover:text-darkContainer" href="https://github.com/joulephi" target="_blank"><FaGithub /></a>
@@ -34,7 +42,7 @@ const About = ({ projects }) => {
                 </div>
 
                 <div className="lg:w-1/2 w-full h-1/2 lg:h-full overflow-hidden flex justify-center items-center   mb-10 lg:mb-0">
-                    <div className="rounded-[30%_70%_70%_30%_/_30%_30%_70%_70%]   shadow-inner  bg-purple bg-me bg-cover bg-no-repeat  lg:w-[70%] lg:h-[70%] w-full h-full md:w-[50%]  bg-[center_top_1rem]" ></div>
+                    <div className={`rounded-[30%_70%_70%_30%_/_30%_30%_70%_70%]   shadow-inner  bg-purple  bg-cover bg-no-repeat  lg:w-[70%] lg:h-[70%] w-full h-full md:w-[50%]  bg-[center_top_1rem]`} style={{ backgroundImage: `url('/storage/${about.image}')` }} ></div>
 
                 </div>
             </div>
